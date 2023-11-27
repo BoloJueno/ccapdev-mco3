@@ -5,6 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import controller from "./controller/Controller.js";
+import Reservation from "./controller/Reservation.js";
 // import {allowInsecurePrototypeAccess} from '@handlebars/allow-prototype-access';
 import path from 'path';
 import multer from 'multer';
