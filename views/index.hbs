@@ -423,6 +423,11 @@
 
 	async function getReservedSeats() {
 		removeGrid();
+		GLOBAL_unavailableSeats = [];
+		{{!-- GLOBAL_alt_reservations = {};
+		GLOBAL_reservations = {};
+		GLOBAL_reservees = {}; --}}
+
 		const response = await fetch(`/getReservations`,  {
 			method: 'GET',
 			headers: {
