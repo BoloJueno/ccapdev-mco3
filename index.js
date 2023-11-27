@@ -301,10 +301,17 @@ routes.route("/login").post(async (req, res, next) => {
 
 //=========================CRUD=================================
 
-//delete reservations index
+//check reservations index
 routes.route("/getReservations").get(async(req, res) => {
     const results = await controller.aggregateReservations()
     res.json({results});
+});
+
+//check Avail Seat index
+routes.route("/checkSeatAvail").get(async(req, res) => {
+    const result = req.query
+    const exists = await Reservation.findAvailSeat(result);
+    res.json({exists});
 });
 
 //delete reservations index
