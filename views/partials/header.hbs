@@ -1,0 +1,62 @@
+{{!-- <header>
+	<img id="logo" src="/images/logo.png"/>
+
+	<div id="company-name">ReserveLabs</div>
+
+	<nav class="navbar navCenter navSearch navbar-dark">
+		<div class="container-fluid">
+			<form class="d-flex" id="searchUserForm" action="/results/asdf">
+				<input class="form-control searchInputform" id="searchInput" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn navSearchbtn btn-outline-success" id="searchbtn" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<a class="headerlinks" href="/"><div class="home-page" id="home">HOME</div></a>
+	<a class="headerlinks" href="/login"><div class="home-page" id="login">LOGIN</div></a>
+</header> --}}
+
+{{#if session}}
+<header>
+    <img id="logo" src="/images/logo.png"/>
+
+    <div id="company-name">ReserveLabs</div>
+
+    <nav class="navbar navCenter navSearch navbar-dark">
+        <div class="container-fluid">
+            <form class="d-flex" id="searchUserForm" action="/results" method="get">	
+                <input class="form-control searchInputform" id="searchInput" type="search" placeholder="Search" aria-label="Search" name="searchInput">
+                <button class="btn navSearchbtn btn-outline-success" id="searchbtn" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <a class="headerlinks" href="/index/{{user}}"><div class="home-page" id="home">HOME</div></a>
+    <a class="headerlinks">
+        <!-- Large button groups (default and split) -->
+        <div class="dropdown">
+            <button class="btn headBtn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <b> Hi, {{firstName}}!</b>
+            </button>
+            <ul class="dropdown-menu">
+                <li><button class="dropdown-item" type="button" onclick="location.href = '/profile/{{sessionID}}';">Profile</button></li>
+                <li><button class="dropdown-item" type="button" onclick="location.href = '/logout';">Log Out</button></li>
+            </ul>
+        </div></a>
+</header>
+{{else}}
+<header>
+	<img id="logo" src="/images/logo.png"/>
+
+	<div id="company-name">ReserveLabs</div>
+
+	<nav class="navbar navCenter navSearch navbar-dark">
+		<div class="container-fluid">
+			<form class="d-flex" id="searchUserForm" action="/results" method="get">	
+				<input class="form-control searchInputform" id="searchInput" type="search" placeholder="Search" aria-label="Search" name="searchInput">
+				<button class="btn navSearchbtn btn-outline-success" id="searchbtn" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<a class="headerlinks" href="/"><div class="home-page" id="home">HOME</div></a>
+	<a class="headerlinks" href="/login"><div class="home-page" id="login">LOGIN</div></a>
+</header>
+{{/if}}

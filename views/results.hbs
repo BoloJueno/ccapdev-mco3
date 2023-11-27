@@ -1,0 +1,64 @@
+{{> header}}
+
+<!-- searched-container shows what was the user searching for -->
+<div id="searched-container"> Results for <span style="font-weight: bold;">"{{enteredQuery}}"</span> </div> 
+<hr>
+
+<!-- Start of results. results-container is used per user -->
+{{#if data.length}}
+    {{#each data}}
+        <div class="results-container">
+            <div class="prof-pic-container">
+                <div class="image-crop">
+                    <img src="{{this.img}}"/>
+                </div>
+            </div>
+        <!-- insert href below -->
+            <a class="results-name" href="/profile/{{this.id}}">{{this.firstName}} {{this.lastName}}</a>
+            <div class="results-id" id="showIDno">ID #{{this.IDno}}</div>
+            <div class="results-bio">{{this.bio}}</div>
+        </div>
+    {{/each}}
+{{else}}
+    <div class="results-container"><h3>No results found!</h3></div>
+    
+{{/if}}
+{{!-- <div class="results-container">
+    <div class="prof-pic-container">
+        <img src="https://vaya.in/recipes/wp-content/uploads/2018/05/Fried-Chicken.jpg"/>
+    </div>
+    <!-- insert href below -->
+        <a class="results-name" href="profile2.html">Fried Chicken Smith</a>
+        <div class="results-id">ID #000002</div>
+        <div class="results-bio">Crispy-licious ang chicken!</div>
+</div>
+
+<div class="results-container">
+    <div class="prof-pic-container">
+        <img src="https://cdn.vox-cdn.com/thumbor/zCyV1WWMmwxUwXoZwohSgabjqKI=/0x0:1000x773/1200x800/filters:focal(503x268:663x428)/cdn.vox-cdn.com/uploads/chorus_image/image/67215706/Jollibee.0.jpg"/>
+    </div>
+    <!-- insert href below -->
+        <a class="results-name" href="profile3.html">Jollibee P. Noval</a>
+        <div class="results-id">ID #000003</div>
+        <div class="results-bio">Sa Jollibee~ Bida ang saya!</div>
+</div>
+
+<div class="results-container">
+    <div class="prof-pic-container">
+        <img src="https://i.pinimg.com/736x/36/1e/d8/361ed8b6265861037da24e15bba53eb8.jpg"/>
+    </div>
+    <!-- insert href below -->
+        <a class="results-name" href="profile4.html">Figma De Leon</a>
+        <div class="results-id">ID #000004</div>
+        <div class="results-bio">Manifesting 4.0!</div>
+</div>
+
+<div class="results-container">
+    <div class="prof-pic-container">
+        <img src="https://i.pinimg.com/736x/88/de/b1/88deb10844dc3d73277dc0a9993ef02b.jpg"/>
+    </div>
+    <!-- insert href below -->
+        <a class="results-name" href="profile5.html">Adeline Maganda</a>
+        <div class="results-id">ID #000005</div>
+        <div class="results-bio">“Beauty begins the moment you decide to be yourself.” —Coco Chanel</div>
+</div> --}}

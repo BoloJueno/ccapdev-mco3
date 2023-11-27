@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@300&display=swap');
+
+:root {
+    --primary: #E5E5E5;
+    font-family: Gotham;
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url("/font/Gotham-font-family/Gotham/Gotham-Medium.otf");
+}
+
+@font-face {
+    font-family: Gotham-bold;
+    src: url("/font/Gotham-font-family/Gotham/Gotham-Bold.otf");
+    /* font-weight: bold; */
+}
+
+@font-face {
+    font-family: Gotham-light;
+    src: url("/font/Gotham-font-family/Gotham/Gotham-Light.otf");
+    /* font-weight: lighter; */
+}
+
+.headerlinks {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+header {
+    font-family: Gotham;
+    background-color: #14213D;
+    color: white;
+    /* height: 60px; */
+    width: 100%;
+    display: flex;
+    position: sticky;
+    /* padding-left: 10px; */
+    top: 0;
+    z-index: 2;
+}
+
+#logo {
+    max-width: 73px;
+    margin-left: 20px;
+}
+
+/* Navigation Bar - Dropdown Start */
+.dropdown {
+    background-color: #fca311;
+    padding: 18px;
+}
+
+.headBtn {
+    background-color: transparent !important;
+    border: none !important;
+    color: black !important;
+}
+
+body {
+    background-color: var(--primary) !important;
+    margin: 0;
+}
+
+#company-name {
+    font-size: 31px;
+    flex: 1;
+    padding-left: 35px;
+    padding-top: 14px;
+}
+
+.d-flex {
+    background-color: white !important;
+    border-radius: 8px !important;
+    border-color: #14213D !important;
+    position: relative;
+}
+
+.searchInputform {
+    border: transparent !important;
+}
+
+
+.navSearchbtn {
+    margin-left: -0.5rem;
+    border-color: #14213D !important;
+    color: #14213D !important;
+    display: none !important;
+}
+
+.navSearchbtn:hover {
+    background-color: #14213D !important;
+    color: white !important;
+}
+
+
+.home-page {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 1.5rem;
+}
+
+.home-page:hover {
+    background-color: #fca311;
+    color: black;
+}
+
+.main-container {
+    display: flex;
+    height: 100%;
+}
+
+.login-container {
+    background-color: white;
+    width: 40%;
+    margin: 10% 65px auto;
+    border-radius: 40px;
+    padding: 20px;
+    flex-direction: column;
+}
+
+#welcome {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    justify-content: center;
+    max-width: 70%;
+    margin: auto auto;
+}
+
+#login-button {
+    background-color: #fca311;
+    color: black;
+    height: 50px;
+    width: 100%;
+    border-radius: 50px;
+    margin: 10px auto 0px auto;
+}
+
+#login-button:hover {
+    background-color: black;
+    color: white;
+    
+}
+
+.image-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    justify-content: center;
+    padding: 50px;
+    background-image: url("../images/login_photo.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.form-input {
+    background-color: #E5E5E5;
+    padding: 18px;
+    border-radius: 30px;
+    border: none;
+}
+
+.form-check {
+    padding-left: 2.5em !important;
+    margin-bottom: 1rem !important;
+}
+
+#register{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#register-link{
+    color: black;
+}
+
+/* .field-icon {
+    float: right;
+    margin-left: 140px;
+    margin-top: -40px;
+    position: relative;
+    z-index: 2;
+} */
+
+.field-icon {
+    position: relative;
+    margin-right: 20px;
+    margin-left: auto;
+    margin-top: -42px;
+    z-index: 2;
+}
+

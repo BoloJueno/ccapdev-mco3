@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@300&display=swap');
+
+:root {
+    --primary: #E5E5E5;
+    font-family: Gotham;
+}
+
+
+/* Navigation Bar Start */
+@font-face {
+    font-family: Gotham;
+    src: url("font/Gotham-font-family/Gotham/Gotham-Medium.otf");
+}
+
+@font-face {
+    font-family: Gotham-bold;
+    src: url("font/Gotham-font-family/Gotham/Gotham-Bold.otf");
+    /* font-weight: bold; */
+}
+
+@font-face {
+    font-family: Gotham-light;
+    src: url("font/Gotham-font-family/Gotham/Gotham-Light.otf");
+    /* font-weight: lighter; */
+}
+
+.headerlinks {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+header {
+    font-family: Gotham;
+    background-color: #14213D;
+    color: white;
+    /* height: 60px; */
+    width: 100%;
+    display: flex;
+    position: sticky;
+    /* padding-left: 10px; */
+    top: 0;
+    z-index: 1;
+}
+
+#logo {
+    max-width: 73px;
+    margin-left: 20px;
+}
+
+body {
+    background-color: var(--primary);
+    margin: 0;
+}
+
+#company-name {
+    font-size: 31px;
+    flex: 1;
+    padding-left: 35px;
+    padding-top: 14px;
+}
+
+.home-page {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 1.5rem;
+}
+
+.home-page:hover {
+    background-color: #fca311;
+    color: black;
+}
+
+/* Nagivation Bar End */
+
+/* Display Name Start*/
+
+.displayContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#displayName {
+    padding-top: 30px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.greyLine {
+    width: 200px;
+    height: 4px;
+    background-color: #a6a6a6;
+    margin-left: 14px;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.yellowLine {
+    width: 50px;
+    height: 8px;
+    background-color: #fca311;
+    border-radius: 4px;
+    margin-left: 70px;
+    position: relative;
+    top: -2px;
+}
+/* Display Name End*/
+
+/* Description Start */
+.description {
+    position: relative;
+    margin-top: 30px;
+    font-family: Gotham-light;
+    text-align: center;
+}
+/* Description End */
+
+/* MissionVision Start */
+.mvContainer {
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 100px;
+}
+
+.missionContainer {
+    background-color: white;
+    width: 350px;
+    height: 450px;
+    border-radius: 40px;
+    padding: 20px 20px 20px 20px;
+}
+
+.planContainer {
+    background-color: white;
+    width: 350px;
+    height: 450px;
+    border-radius: 40px;
+    padding: 20px 20px 20px 20px;
+}
+
+.visionContainer {
+    background-color: white;
+    width: 350px;
+    height: 450px;
+    border-radius: 40px;
+}
+
+.missionPng {
+    width: 350px;
+    height: 450px;
+}
+
+.planPng {
+    width: 350px;
+    height: 450px;
+}
+
+.visionPng {
+    width: 350px;
+    height: 450px;
+}
+/* MissionVision End */

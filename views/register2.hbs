@@ -1,0 +1,79 @@
+{{> header}}
+
+<div class="main-container">
+    <div class="register-container">
+        <div id="welcome">Creating an Account</div>
+        <div>
+            <form class="login-form" action="/register2" method="POST"> 
+                Who will use this account?
+            <div class="userOption-container">
+                <div class =register-who-use>
+                </div>
+                <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="Student" required>
+                    <label class="form-check-label" for="inlineRadio1">Student</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="Lab Technician" required>
+                    <label class="form-check-label" for="inlineRadio2">Lab Tech</label>
+                </div>
+                <br>
+            </div>
+                Account Details
+                <br>
+                <br>
+                <input type="text" class="form-input" id="firstName" name="firstName" placeholder="First Name" required>
+                <br>  
+                <input type="text" class="form-input" id="lastName" name="lastName" placeholder="Last Name" required>
+                <br>
+                <input type="email" class="form-input" id="email" name="email" placeholder="Email address" required>
+                <br>
+                <input type="password" class="form-input" id="password" name="password" placeholder="Password" required>
+                <span class="field-icon" id="field-icon" onclick="togglePass()">
+                    <i class="fa fa-eye-slash"></i>
+                </span>
+                <br>
+                <br>
+                <b>Verify your password</b>
+                <br>
+                <input type="password" class="form-input" id="verifyPassword" name="verifyPassword" placeholder="Verify Password" required>
+                <span class="field-icon" id="field-icon2" onclick="togglePass2()">
+                    <i class="fa fa-eye-slash"></i>
+                </span>
+                <br>
+                <input type="submit" id="register-button" value="Register">
+            </form>
+            </div>
+    </div>
+    <div class="register-image-container">
+        <div class="image-format">
+        <div class="quote-1" style="font-size: 50px; font-weight: bold;">"All the world is a laboratory to the inquiring mind"</div>
+        <div class="quote-1" style="font-size: 30px;">-Martin H. Fischer</div>
+        </div>
+    </div>  
+</div>
+
+<script>
+    function relocate_usersResult()
+    {
+        location.href = `user_results.html`;
+    }
+
+    var input = document.getElementById("searchInput");
+    input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("searchbtn").click();
+        }
+    });
+</script>
+
+<script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="../js/register_page.js"></script>

@@ -1,0 +1,1146 @@
+<!-- //modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Delete Reservation</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Any unsaved data will be lost. Continue?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<a type="button" class="btn btn-danger" id="deleteTrigger">Delete</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //modal -->
+
+<!-- //modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Edit Reservation</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="row g-3" method="POST" id="editReservationForms">
+					<div class="col-md-5">
+						<label for="seatNo" class="form-label">Seat # (i.e. A09)</label>
+						<input type="text" class="form-control" id="seatNo" name="seatNo">
+					</div>
+					<div class="col-md-7">
+						<label for="editLabForm" class="form-label">Lab</label>
+						<select id="editLabForm" class="form-select" name="editLabForm">
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label for="editDateForm" class="form-label">Date</label>
+						<select id="editDateForm" class="form-select" name="editDateForm">
+							<option id="edit_Oct6">Oct 6, 2023</option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label for="editTimeForm" class="form-label">Time</label>
+						<select id="editTimeForm" class="form-select" name="editTimeForm">
+						</select>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<a type="button" class="btn btn-info" onclick="document.getElementById('editReservationForms').submit();" id="editTrigger">Edit</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //modal -->
+
+<!-- //modal -->
+<div class="modal fade" id="reserveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Reserve for a Student</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="row g-3">
+					<div class="col-md-12">
+						<label for="IDNo" class="form-label">ID #</label>
+						<input type="number" class="form-control" id="IDNo" name="IDNo" value="{{sessionIDno}}">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="editTrigger" onclick="reservePop()">Reserve</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //modal -->
+
+<!-- //modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Search</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="row g-3">
+					<div class="col-md-12">
+						<label for="searchLabForm" class="form-label">Lab</label>
+						<select id="searchLabForm" class="form-select">
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label for="searchDateForm" class="form-label">Date</label>
+						<select id="searchDateForm" class="form-select">
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label for="searchTimeForm" class="form-label">Time</label>
+						<select id="searchTimeForm" class="form-select">
+						</select>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-bs-dismiss="modal"  onclick="searchFunc()">Check Availability</button>
+				<!-- <button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="editTrigger" onclick="reservePop()">Reserve</button> -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //modal -->
+
+{{> header}}
+
+<div id="content">
+	<!-- LEFT INTERFACE -->
+	<div id="lablist">
+		<div class="accordion accordion-flush" id="accordionFlushExample">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#GoksAccord" aria-expanded="true" aria-controls="GoksAccord">
+						Gokongwei Sr. Hall
+					</button>
+				</h2>
+				<div id="GoksAccord" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="labdiv">
+							<button class="activeLab labbtn labs" id="leftGK101A" onclick="activeLab(id)">
+								GK101A
+							</button>
+							<button class="labbtn labs" id="leftGK304A" onclick="activeLab(id)">
+								GK304A
+							</button>
+							<button class="labbtn labs" id="leftGK304B" onclick="activeLab(id)">
+								GK304B
+							</button>
+						</div>							
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#AndrewAccord" aria-expanded="false" aria-controls="AndrewAccord">
+						Br. Andrew Gonzalez Hall
+					</button>
+				</h2>
+				<div id="AndrewAccord" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="labdiv">
+							<button class="labbtn labs" id="leftAG702" onclick="activeLab(id)">
+								AG702
+							</button>
+							<button class="labbtn labs" id="leftAG1904" onclick="activeLab(id)">
+								AG1904
+							</button>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#LSAccord" aria-expanded="false" aria-controls="LSAccord">
+						St. La Salle Hall
+					</button>
+				</h2>
+				<div id="LSAccord" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="labdiv">
+							<button class="labbtn labs" id="leftLS209" onclick="activeLab(id)">
+								LS209
+							</button>
+							<button class="labbtn labs" id="leftLS311" onclick="activeLab(id)">
+								LS311
+							</button>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- RIGHT INTERFACE -->
+	<div id="rightint">
+		<div id="rightinthead">
+			<div id="dates">
+				<button class="btndates activeDate" id="oct6" onclick="activeDate(id)">Oct 6, 2023</button>
+				<!-- <button class="btndates" id="oct7" onclick="activeDate(id)">Oct 7, 2023</button>
+				<button class="btndates" id="oct8" onclick="activeDate(id)">Oct 8, 2023</button>
+				<button class="btndates" id="oct9" onclick="activeDate(id)">Oct 9, 2023</button>
+				<button class="btndates" id="oct10" onclick="activeDate(id)">Oct 10, 2023</button>
+				<button class="btndates" id="oct11" onclick="activeDate(id)">Oct 11, 2023</button>
+				<button class="btndates" id="oct12" onclick="activeDate(id)">Oct 12, 2023</button> -->
+			</div>
+
+			<div class="btn-group dropstart">
+				<button id="timeDropdown" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					&ensp;7:00
+				</button>
+				<ul class="dropdown-menu" id="timeDropMenu">
+					<!-- <li><a class="dropdown-item" id="7:00" onclick="activeTime(id)">7:00</a></li>
+					<li><a class="dropdown-item" id="7:30" onclick="activeTime(id)">7:30</a></li>
+					<li><a class="dropdown-item" id="8:00" onclick="activeTime(id)">8:00</a></li>
+					<li><a class="dropdown-item" id="8:30" onclick="activeTime(id)">8:30</a></li>
+					<li><a class="dropdown-item" id="9:00" onclick="activeTime(id)">9:00</a></li>
+					<li><a class="dropdown-item" id="9:30" onclick="activeTime(id)">9:30</a></li>
+					<li><a class="dropdown-item" id="10:00" onclick="activeTime(id)">10:00</a></li>
+					<li><a class="dropdown-item" id="10:30" onclick="activeTime(id)">10:30</a></li>
+					<li><a class="dropdown-item" id="11:00" onclick="activeTime(id)">11:00</a></li>
+					<li><a class="dropdown-item" id="11:30" onclick="activeTime(id)">11:30</a></li>
+					<li><a class="dropdown-item" id="12:00" onclick="activeTime(id)">12:00</a></li>
+					<li><a class="dropdown-item" id="12:30" onclick="activeTime(id)">12:30</a></li>
+					<li><a class="dropdown-item" id="13:00" onclick="activeTime(id)">13:00</a></li>
+					<li><a class="dropdown-item" id="13:30" onclick="activeTime(id)">13:30</a></li>
+					<li><a class="dropdown-item" id="14:00" onclick="activeTime(id)">14:00</a></li>
+					<li><a class="dropdown-item" id="14:30" onclick="activeTime(id)">14:30</a></li>
+					<li><a class="dropdown-item" id="15:00" onclick="activeTime(id)">15:00</a></li>
+					<li><a class="dropdown-item" id="15:30" onclick="activeTime(id)">15:30</a></li>
+					<li><a class="dropdown-item" id="16:00" onclick="activeTime(id)">16:00</a></li>
+					<li><a class="dropdown-item" id="16:30" onclick="activeTime(id)">16:30</a></li>
+					<li><a class="dropdown-item" id="17:00" onclick="activeTime(id)">17:00</a></li>
+					<li><a class="dropdown-item" id="17:30" onclick="activeTime(id)">17:30</a></li>
+					<li><a class="dropdown-item" id="18:00" onclick="activeTime(id)">18:00</a></li>
+					<li><a class="dropdown-item" id="18:30" onclick="activeTime(id)">18:30</a></li> -->
+				</ul>
+			</div>
+		</div>
+		<div id="reservebody">
+			<!-- ALERTS -->
+			<div class="alert alert-warning alert-dismissible fade show w-75 mx-auto mb-4" role="alert">
+				The <strong>Oct 6, 2023</strong> date button functions as a placeholder to showcase sample reservations
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<div class="alert alert-warning alert-dismissible fade show w-75 mx-auto mb-4" role="alert" id="labTechAlert" style="display: none;">
+				You are logged in as a <strong>Lab Technician</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<div class="alert alert-warning alert-dismissible fade show w-75 mx-auto mb-4" role="alert" id="studentAlert" style="display: none;">
+				You are logged in as a <strong>Student</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<div class="alert alert-warning alert-dismissible fade show w-75 mx-auto mb-4" role="alert" id="guestAlert" style="display: none;">
+				You are browsing as a <strong>Guest. </strong> To reserve, <a href="/login" style="color: var(--bs-warning-text-emphasis); font-weight: bold;">Log in</a>.
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<div id="liveAlertPlaceholder"></div>
+			<div class="w-75 mb-5 mx-auto justify-content-center" id="searchSeatsDiv">
+				<button type="button" class="w-75 btn btn-light mb-2 p-3" id="liveAlertBtn" data-bs-toggle="modal" data-bs-target="#searchModal">
+					<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+					</svg>
+					&ensp;Look for available seats
+				</button>
+			</div>
+			<!-- <button>hi</button> -->
+			<!-- Legends -->
+			<div id="legends">
+				<div class="legendsDesc" id="unavailableLegend">
+					<button type="button" class="btn btn-warning takenSeats activeGrid grid"></button>
+					<p class="descLegend">&emsp;Unavailable</p>
+				</div>
+				<div class="legendsDesc" id="availableLegend">
+					<button type="button" class="btn btn-warning activeGrid grid"></button>
+					<p class="descLegend">&emsp;Available</p>
+				</div>
+				<div class="legendsDesc" id="selectedLegend">
+					<button type="button" class="btn btn-warning availSeats activeGrid grid"></button>
+					<p class="descLegend">&emsp;Selected</p>
+				</div>
+			</div>
+			<!-- Screen -->
+			<div id="screen"><b>SCREEN</b></div>				
+
+			<!-- grid -->
+			<div id="reservegrid"></div>
+		</div>
+
+		<div id="reserveInfo" style="display: none;">
+			<!-- left Info -->
+			<div id="leftInfo">
+				<h3 class="infoHead"><b>Reservation Details</b></h3>
+
+				<div id="leftInfoBody">
+					<!-- <div>hello</div><div>hello</div> -->
+					<div class="accordion infoAccordion accordionInfo accordion-flush" id="accordionFlushExample1">
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button infoLabMajor" type="button" data-bs-toggle="collapse" data-bs-target="#GK304B" aria-expanded="false" aria-controls="GK304B">
+									GK304B
+								</button>
+							</h2>
+							<div id="GK304B" class="accordion-collapse collapse infoCollapse show" data-bs-parent="#accordionFlushExample1">
+								<div class="accordion-body">
+									<div class="infoLabdiv labdiv" id="infoLabBtns">
+										<button class="infoSeatBtn infoSeats" id="GK304B_A12" onclick="activeInfo(id)">
+											Seat A12
+										</button>
+									</div>							
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div id="infoBtns">
+						<a href="" class="btn btn-primary infoBtn popBtnRsrv" formaction="#">Continue</a>
+						<a href="" type="button" class="btn btn-secondary infoBtn popBtnClose">Cancel</a>								
+					</div> -->
+				</div>
+			</div>
+
+			<!-- middle info -->
+			<div id="rightInfo">
+				<h3 class="infoHead infoText" id="infoSeat"><b>Seat A21</b></h3>
+
+				<div class="infoText" id="seatInfo">
+					<p>Laboratory: <span class="blueText" id="infoLab"> GK304B</span></p>
+					<p>Date: <span class="blueText" id="infoDate"> 9:30 AM - 10:00 AM</span></p>
+					<p>Time: <span class="blueText" id="infoTime"> 9:30 AM - 10:00 AM</span></p>
+					<p>Reservee: <a class="blueText" id="infoName"></a></p>
+				</div>
+			</div>
+
+			<!-- right info -->
+			<div id="farRight">
+				<div id="infoBtns">
+					<a onclick="createReservation()" class="btn btn-primary infoBtn popBtnRsrv" id="createTrigger">Continue</a>
+					<a href="" type="button" class="btn btn-secondary infoBtn popBtnClose">Cancel</a>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<script>
+
+	// FUNCTIONS
+
+	var queryParams = new URLSearchParams(window.location.search);
+
+	var userType = {{user}};
+	var GLOBAL_seat_ID;
+	var GLOBAL_lab = document.getElementsByClassName("activeLab")[0].textContent;
+	var GLOBAL_time = document.getElementById("timeDropdown").textContent;
+	var GLOBAL_date;
+	var GLOBAL_no_reserve = 0;
+	var GLOBAL_complete_seat_ID;
+
+	var GLOBAL_lab_format = {
+		"GK101A" : [9, 4, 2],
+		"GK304A" : [10, 3, 2],
+		"GK304B" : [10, 4, 3],
+		"AG702" : [6, 2, 5],
+		"AG1904" : [8, 2, 6],
+		"LS209" : [10, 4, 3],
+		"LS311" : [9, 4, 2]
+	};
+
+	{{!-- var GLOBAL_unavailableSeats = [
+		"Oct6,2023_7:00_GK101A_B03",
+		"Oct6,2023_7:00_GK101A_B04",
+		"Oct6,2023_7:00_GK101A_B05",
+		"Oct6,2023_7:00_GK101A_B06",
+		"Oct6,2023_7:00_GK101A_B07",
+		"Oct6,2023_7:00_GK101A_B08"
+	]; --}}
+
+	var GLOBAL_unavailableSeats = [];
+
+	var GLOBAL_selectedSeats = [];
+
+	var GLOBAL_reservees = {};
+
+	var GLOBAL_reservations = {};
+
+	var GLOBAL_alt_reservations = {};
+
+	{{#each data}}
+		var tempResDate = "{{this.resDate}}";
+		var tempResDateDate = tempResDate.split(' ')[1] + parseInt(tempResDate.split(' ')[2], 10) + "," + tempResDate.split(' ')[3]
+		var tempResDateHour = tempResDate.split(' ')[4].split(':')[0];
+		var tempResDateMin = tempResDate.split(' ')[4].split(':')[1];
+		var string = tempResDateDate + "_" + parseInt(tempResDateHour, 10) + ":" + tempResDateMin + "_{{this.lab}}" + "_{{this.seat}}" + "_{{this.anon}}";
+		var altString = tempResDateDate + "_" + parseInt(tempResDateHour, 10) + ":" + tempResDateMin + "_{{this.lab}}" + "_{{this.seat}}";
+
+		GLOBAL_alt_reservations[altString] = {id: "{{this._id}}"};
+
+		{{#if this.reservedStud}}
+			GLOBAL_reservations[string] = {id: "{{this.reservedStud}}"};
+		{{else}}
+			GLOBAL_reservations[string] = {id: "{{this._id}}"};
+		{{/if}}
+
+		{{#if studReservee}}
+			{{#each studReservee}}
+				GLOBAL_reservees[string.substring(0, string.lastIndexOf('_'))] = {firstName: "{{this.firstName}}", lastName: "{{this.lastName}}", id: "{{this._id}}", reservation: string};
+			{{/each}}
+		{{else}}
+			{{#each reservee}}
+				GLOBAL_reservees[string.substring(0, string.lastIndexOf('_'))] = {firstName: "{{this.firstName}}", lastName: "{{this.lastName}}", id: "{{this._id}}", reservation: string};
+			{{/each}}
+		{{/if}}
+
+		GLOBAL_unavailableSeats.push(string);
+	{{/each}}
+
+	function deleteReservation() {
+		console.log(GLOBAL_complete_seat_ID);
+
+		for (var i = 0; i < GLOBAL_unavailableSeats.length; i++) {
+			if(GLOBAL_complete_seat_ID == GLOBAL_unavailableSeats[i]) {
+				delete GLOBAL_unavailableSeats[i];
+				console.log(GLOBAL_unavailableSeats);
+			}
+		}
+
+		removeGrid();
+	}
+
+	const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+	const appendAlert = (message, type) => {
+		const wrapper = document.createElement('div')
+		wrapper.innerHTML = [
+			`<div class="alert alert-${type} alert-dismissible w-75 mx-auto mb-4 fade show" role="alert">`,
+			`   <div>${message}</div>`,
+			'   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+			'</div>'
+		].join('')
+		
+		alertPlaceholder.append(wrapper)
+	}
+		
+	const alertTrigger = document.getElementById('deleteTrigger')
+	
+	{{#if isDeleted}}
+		appendAlert('Reservation <strong>Deleted!</strong>', 'danger')
+	{{/if}}
+
+	{{#if isEdited}}
+		appendAlert('Reservation <strong>Edited!</strong>', 'info')
+	{{/if}}
+
+	{{#if isCreated}}
+		appendAlert('Reservation <strong>Created!</strong>', 'success')
+	{{/if}}
+
+	if (alertTrigger) {
+		alertTrigger.addEventListener('click', () => {
+			appendAlert('Reservation <strong>Deleted!</strong>', 'danger')
+		})
+	}
+
+	const alertTrigger2 = document.getElementById('editTrigger')
+	if (alertTrigger2) {
+		alertTrigger2.addEventListener('click', () => {
+			appendAlert('Reservation <strong>Edited!</strong>', 'info')
+		})
+	}
+
+	const alertTrigger3 = document.getElementById('createTrigger')
+	if (alertTrigger3) {
+		alertTrigger3.addEventListener('click', () => {
+			appendAlert('Reservation <strong>Created!</strong>', 'success')
+		})
+	}
+
+	function searchFunc() {
+
+		GLOBAL_date = $("#searchDateForm").val();
+		GLOBAL_lab =  $("#searchLabForm").val();
+		GLOBAL_time =  $("#searchTimeForm").val();
+
+		var splitDate = GLOBAL_date.trim().split(' ');
+
+		// console.log(GLOBAL_date, GLOBAL_lab, GLOBAL_time);
+
+		removeGrid();
+		activeDate(splitDate[0] + splitDate[1].slice(0, -1));
+		activeLab("left" + GLOBAL_lab.trim());
+		activeTime(GLOBAL_time.trim());
+	}
+
+	function activeLab(lab) {
+
+		var labs = document.getElementsByClassName("labs");
+
+		for (var i = 0; i < labs.length; i++) {
+			labs[i].className = "labbtn labs";
+		}
+
+		document.getElementById(lab).className = "activeLab labbtn labs";
+
+		GLOBAL_lab = document.getElementsByClassName("activeLab")[0].textContent;
+
+		removeGrid();
+	}
+
+	function activeInfo(info) {
+
+		var infos = document.getElementsByClassName("infoSeats");
+
+		for (var i = 0; i < infos.length; i++) {
+			infos[i].className = "infoSeatBtn infoSeats";
+		}
+
+		document.getElementById(info).className = "activeSeat infoSeatBtn infoSeats";
+		document.getElementById("infoSeat").innerHTML = document.getElementById(info).textContent;
+		document.getElementById("infoLab").innerHTML = GLOBAL_lab;
+		document.getElementById("infoDate").innerHTML = info.split('_')[0].substring(0, 3) + " " + info.split('_')[0].substring(3, 5) + " " + info.split('_')[0].substring(5);
+		document.getElementById("infoTime").innerHTML = info.split('_')[1];
+
+		if (info.split('_')[4] == "true") {
+			console.log(info.split('_')[4]);
+			document.getElementById("infoName").innerHTML = "Anon";
+			$("#infoName").attr('style', 'pointer-events: none;')
+		} else {
+			if (userType === 1) {// if student
+				document.getElementById("infoName").innerHTML = "{{firstName}} {{lastName}}";
+				$("#infoName").attr('href', "/profile/{{sessionID}}");
+				$("#infoName").attr('style', '')
+			} else {//if lab tech
+				document.getElementById("infoName").innerHTML = "ID #" + info.split('_')[5];
+				$("#infoName").attr('style', '')
+			}
+		}
+		
+		$(".infoText").fadeIn();
+
+	}
+
+	function activeDate(date) {
+		var dates = document.getElementsByClassName("btndates");
+
+		// console.log({dates});
+
+		for (var i = 0; i < dates.length; i++) {
+			dates[i].className = "btndates";
+		}
+
+		document.getElementById(date).className = "btndates activeDate";
+
+		GLOBAL_date = document.getElementsByClassName("activeDate")[0].textContent;
+
+		removeGrid();
+	}
+
+	function activeTime(time) {
+		var times = document.getElementsByClassName("dropdown-item");
+
+		for (var i = 0; i < times.length; i++) {
+			times[i].style.backgroundColor = "white";
+		}
+
+		document.getElementById(time).style.backgroundColor = "#D9D9D9";
+		document.getElementById("timeDropdown").innerHTML = time;
+
+		GLOBAL_time = document.getElementById("timeDropdown").textContent;
+
+		removeGrid();
+	}
+
+	function activeSeat(seat) {
+		var pops = document.getElementsByClassName("popover");
+		var popSeat = document.getElementById("popSeat");
+		var popLab = document.getElementsByClassName("activeLab labbtn labs");
+		var popStartTime = document.getElementById("timeDropdown").textContent.trim();
+		var timeParts = popStartTime.split(":");
+		
+		var time = new Date();
+		time.setHours(timeParts[0]);
+		time.setMinutes(timeParts[1]);
+
+		time.setMinutes(time.getMinutes() + 30);
+
+		for (var i = 0; i < pops.length; i++) {
+			pops[i].style.display = "none";
+		}
+
+		var tempSeat = seat.split('_');
+
+		GLOBAL_seat_ID = " " + tempSeat[tempSeat.length - 1];
+		GLOBAL_lab = " " + popLab[0].textContent;
+		GLOBAL_time = " " + popStartTime + " - " + time.getHours() + ":" + time.getMinutes().toString().padStart(2, '0');
+		GLOBAL_complete_seat_ID = seat;
+		document.getElementById("seatNo").setAttribute("value", GLOBAL_seat_ID.trim());
+	}
+
+	function closePop() {
+		$(".popover").fadeOut(0);
+	}
+
+	function deletePop() {
+		let id = GLOBAL_alt_reservations[GLOBAL_complete_seat_ID].id
+		$(".popover").fadeOut(0);
+		$("#deleteTrigger").attr("href", `/index/delete/${id}`);
+	}
+
+	function editPop() {
+		let id = GLOBAL_alt_reservations[GLOBAL_complete_seat_ID].id
+		$(".popover").fadeOut(0);
+		$("#editReservationForms").attr("action", `/index/edit/${id}`);
+	}
+
+	function createReservation() {
+		fetch('/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ GLOBAL_selectedSeats}),
+		})
+		.then(GLOBAL_selectedSeats => {
+			console.log('Success:', GLOBAL_selectedSeats);
+
+			{{#if session}}
+			location.href = `/index/${userType}/created/true`;
+			{{/if}}
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+	}
+
+	function reservePop() {
+		
+		var seatId
+		{{#if session}}
+		if (userType === 2) {//if lab tech
+			seatId = GLOBAL_date.trim().replace(/\s+/g, '') + "_" + GLOBAL_time.trim().split(' ')[0] + "_" + GLOBAL_lab.trim() + "_" + GLOBAL_seat_ID.trim() + "_" + document.getElementById(`${GLOBAL_complete_seat_ID}_flexCheckDefault`).checked + "_" + $('#IDNo').val();
+		} else {//if student
+			seatId = GLOBAL_date.trim().replace(/\s+/g, '') + "_" + GLOBAL_time.trim().split(' ')[0] + "_" + GLOBAL_lab.trim() + "_" + GLOBAL_seat_ID.trim() + "_" + document.getElementById(`${GLOBAL_complete_seat_ID}_flexCheckDefault`).checked + "_" + {{sessionIDno}};
+		}	
+		{{/if}}
+
+		GLOBAL_selectedSeats.push(seatId);
+		console.log(GLOBAL_seat_ID);
+		
+		removeGrid();
+		if (GLOBAL_no_reserve < 1) {
+			$("#reserveInfo").fadeIn();
+			document.getElementsByClassName("infoLabMajor")[0].innerHTML = GLOBAL_lab.trim();
+			document.getElementsByClassName("infoLabMajor")[0].setAttribute('data-bs-target', '#' + GLOBAL_lab.trim());
+			document.getElementsByClassName("infoLabMajor")[0].setAttribute('aria-controls', GLOBAL_lab.trim());
+			document.getElementsByClassName("infoSeats")[0].innerHTML = "Seat " + GLOBAL_seat_ID.trim();
+			document.getElementsByClassName("infoSeats")[0].id = seatId + "_info";
+			document.getElementsByClassName("infoLabdiv")[0].id = GLOBAL_lab.trim() + "_infoLabBtns";
+			document.getElementsByClassName("infoCollapse")[0].id = GLOBAL_lab.trim();
+			// document.getElementById(seatId).className = "btn btn-warning activeGrid grid takenSeats";//changes bg of taken seats
+			
+			window.scrollTo(0, document.body.scrollHeight);
+			GLOBAL_no_reserve++;
+		} else {
+			var btn = document.createElement('button');
+			var textNode = document.createTextNode("Seat " + GLOBAL_seat_ID.trim());
+			var labsReserved = document.getElementsByClassName("infoLabMajor");
+			var newLab = true;
+
+			for (var i = 0; i < labsReserved.length; i++) {
+				if (labsReserved[i].innerText === GLOBAL_lab.trim()) {
+					newLab = false;
+				}
+			}
+
+			if (newLab == true) {
+				var acc_item = document.createElement('div');
+				acc_item.className = "accordion-item";
+
+				var acc_header = document.createElement('h2');
+				acc_header.className = "accordion-header";
+
+				var acc_button = document.createElement('button');
+				acc_button.className = "accordion-button collapsed infoLabMajor";
+				acc_button.setAttribute('type', 'button');
+				acc_button.setAttribute('data-bs-toggle', 'collapse');
+				acc_button.setAttribute('data-bs-target', '#' + GLOBAL_lab.trim());
+				acc_button.setAttribute('aria-expanded', 'false');
+				acc_button.setAttribute('aria-controls', GLOBAL_lab.trim());
+				acc_button.innerHTML = GLOBAL_lab.trim();
+
+				var acc_collapse = document.createElement('div');
+				acc_collapse.id = GLOBAL_lab.trim();
+				acc_collapse.className = "accordion-collapse collapse infoCollapse";
+				acc_collapse.setAttribute('data-bs-parent', "#accordionFlushExample1");
+
+				var acc_body = document.createElement('div');
+				acc_body.className = 'accordion-body';
+
+				var infoLabDiv = document.createElement('div');
+				infoLabDiv.className = "infoLabdiv labdiv";
+				infoLabDiv.id = GLOBAL_lab.trim() + "_infoLabBtns";
+
+				var infoSeatBtn = document.createElement('button');
+				infoSeatBtn.className = "infoSeatBtn infoSeats";
+				infoSeatBtn.id = seatId + "_info";
+				infoSeatBtn.setAttribute('onclick', "activeInfo(id)");
+				infoSeatBtn.innerHTML = "Seat " + GLOBAL_seat_ID.trim();
+
+				acc_header.appendChild(acc_button);
+				infoLabDiv.appendChild(infoSeatBtn);
+				acc_body.appendChild(infoLabDiv);
+				acc_collapse.appendChild(acc_body);
+				acc_item.appendChild(acc_header);
+				acc_item.appendChild(acc_collapse);
+
+				document.getElementsByClassName("infoAccordion")[0].appendChild(acc_item);
+				// document.getElementById(GLOBAL_seat_ID.trim()).className = "btn btn-warning activeGrid grid takenSeats";//changes bg of taken seats
+			} else {
+				btn.className = "infoSeatBtn infoSeats"
+				btn.id = seatId + "_info";
+				btn.setAttribute('onclick', 'activeInfo(id)');
+
+				btn.appendChild(textNode);
+				document.getElementById(GLOBAL_lab.trim() + "_infoLabBtns").appendChild(btn);
+				// document.getElementById(GLOBAL_seat_ID.trim()).className = "btn btn-warning activeGrid grid takenSeats";//changes bg of taken seats
+			}
+			
+		}
+	}
+
+	function removeGrid() {
+		var existingReserveGrid = document.getElementById("reservegrid");
+		if (existingReserveGrid) {
+			existingReserveGrid.remove();
+		}
+		
+		// Create a new reservegrid element
+		var reservegrid = document.createElement('div');
+		reservegrid.id = "reservegrid";
+		
+		// Append the new reservegrid element
+		document.getElementById("reservebody").appendChild(reservegrid);
+		
+		// Initialize the grid functionality for the new element
+		gridFunc();
+	}
+
+	document.addEventListener("DOMContentLoaded", function () {
+		gridFunc();
+	});
+
+	function gridFunc() {
+		
+		$(document).ready(function(){
+			$('[data-toggle="popover"]').popover({
+				placement: 'right',
+				content: function () {
+					// Create the content of the popover, including buttons
+					var popoverContent = document.createElement('div');
+
+					//popseat
+					var popSeat = document.createElement('p');
+					popSeat.className = "pPop";
+					popSeat.id = "popSeat";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Seat #:"));					
+					popSeat.appendChild(boldElement);
+					popSeat.appendChild(document.createTextNode(GLOBAL_seat_ID));
+					popoverContent.appendChild(popSeat);
+
+					//popLab
+					var popLab = document.createElement('p');
+					popLab.className = "pPop";
+					popLab.id = "popLab";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Laboratory:"));
+					popLab.appendChild(boldElement);
+					popLab.appendChild(document.createTextNode(GLOBAL_lab));
+					popoverContent.appendChild(popLab);
+
+					//popDate
+					var popDate = document.createElement('p');
+					popDate.className = "pPop";
+					popDate.id = "popDate";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Date: "));
+					popDate.appendChild(boldElement);
+					popDate.appendChild(document.createTextNode(GLOBAL_date));
+					popoverContent.appendChild(popDate);
+
+					//popTime
+					var popTime = document.createElement('p');
+					popTime.className = "pPop";
+					popTime.id = "popTime";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Time:"));
+					popTime.appendChild(boldElement);
+					popTime.appendChild(document.createTextNode(GLOBAL_time));
+					popoverContent.appendChild(popTime);
+
+					if (userType == 1) {
+						popoverContent.innerHTML += `
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="${GLOBAL_complete_seat_ID}_flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Reserve Anonymously
+								</label>
+							</div>
+
+							<div id="popBtns">
+								<button type="button" class="btn btn-secondary popBtn popBtnClose" onclick="closePop()">Close</button>
+								<button type="button" class="btn btn-primary popBtn popBtnRsrv" onclick="closePop(), reservePop()">Reserve</button>
+							</div>
+						`;
+					} else if (userType == 2) {
+						popoverContent.innerHTML += `
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="${GLOBAL_complete_seat_ID}_flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Reserve Anonymously
+								</label>
+							</div>
+
+							<div id="popBtns">
+								<button type="button" class="btn btn-secondary popBtn popBtnClose" onclick="closePop()">Close</button>
+								<button type="button" class="btn btn-primary popBtn popBtnRsrv" onclick="closePop()" data-bs-toggle="modal" data-bs-target="#reserveModal">Reserve</button>
+							</div>
+						`;
+					} else {
+						popoverContent.innerHTML += `
+							<div id="popBtns">
+								<button type="button" class="btn btn-secondary popBtn popBtnClose" onclick="closePop()">Close</button>
+							</div>
+						`;
+					}
+					
+					return popoverContent;
+				},
+				html: true,
+				template: '<div class="popover" role="tooltip"><div class="arrow"></div><h4 class="reserveHead"><b>Reserve</b></h4><hr class="hrPop"><div class="popover-body"></div></div>',
+				
+			});   
+
+			$('[data-toggle="popoverReserved"]').popover({
+				placement: 'right',
+				content: function () {
+					// Create the content of the popover, including buttons
+					var popoverContent = document.createElement('div');
+
+					//popseat
+					var popSeat = document.createElement('p');
+					popSeat.className = "pPop";
+					popSeat.id = "popSeat";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Seat #:"));					
+					popSeat.appendChild(boldElement);
+					popSeat.appendChild(document.createTextNode(GLOBAL_seat_ID));
+					popoverContent.appendChild(popSeat);
+
+					//popLab
+					var popLab = document.createElement('p');
+					popLab.className = "pPop";
+					popLab.id = "popLab";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Laboratory:"));
+					popLab.appendChild(boldElement);
+					popLab.appendChild(document.createTextNode(GLOBAL_lab));
+					popoverContent.appendChild(popLab);
+
+					//popDate
+					var popDate = document.createElement('p');
+					popDate.className = "pPop";
+					popDate.id = "popDate";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Date: "));
+					popDate.appendChild(boldElement);
+					popDate.appendChild(document.createTextNode(GLOBAL_date));
+					popoverContent.appendChild(popDate);
+
+					//popTime
+					var popTime = document.createElement('p');
+					popTime.className = "pPop";
+					popTime.id = "popTime";
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Time:"));
+					popTime.appendChild(boldElement);
+					popTime.appendChild(document.createTextNode(GLOBAL_time));
+					popoverContent.appendChild(popTime);
+
+					//pPop
+					var pPop = document.createElement('p');
+					pPop.className = "pPop";
+					var reserveeLink = document.createElement('a');
+					reserveeLink.className = "reserveeLink";
+					if (GLOBAL_reservees[GLOBAL_complete_seat_ID].reservation.split('_')[4] == "false") {//if not anonymous
+						reserveeLink.appendChild(document.createTextNode(GLOBAL_reservees[GLOBAL_complete_seat_ID].firstName + " " + GLOBAL_reservees[GLOBAL_complete_seat_ID].lastName));
+						reserveeLink.setAttribute('href', `/profile/${GLOBAL_reservees[GLOBAL_complete_seat_ID].id}`);
+						reserveeLink.setAttribute('style', ``);
+					} else {//if anonymous
+						reserveeLink.appendChild(document.createTextNode("Anon"));
+						reserveeLink.setAttribute('style', `pointer-events: none;`);
+					}
+					
+					var boldElement = document.createElement('b');
+					boldElement.appendChild(document.createTextNode("Reservee: "));
+					pPop.appendChild(boldElement);
+					pPop.appendChild(reserveeLink);
+					popoverContent.appendChild(pPop);
+
+					if (userType == 2){
+						//if 10 mins late
+						if (new Date(GLOBAL_date + " " + (GLOBAL_time.split(' ')[1].split(':')[0] + ":" + (parseInt(GLOBAL_time.split(' ')[1].split(':')[1], 10) + 10).toString()) + ":00").getTime() < new Date(Date.now()).getTime()) {
+							popoverContent.innerHTML += `
+								<div id="popBtns">
+									<button type="button" class="btn btn-secondary popBtn popBtnClose" onclick="closePop()">Close</button>
+									<button type="button" class="btn btn-danger popBtn" onclick="deletePop()" data-bs-toggle="modal" data-bs-target="#deleteModal">Remove</button>
+									<button type="button" class="btn btn-info popBtn" onclick="editPop()" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+								</div>
+							`;
+						} else {
+							popoverContent.innerHTML += `
+								<div id="popBtns">
+									<button type="button" class="btn btn-secondary popBtn popBtnClose" onclick="closePop()">Close</button>
+									<button type="button" class="btn btn-info popBtn" onclick="editPop()" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+								</div>
+							`;
+						}
+						
+					} else {
+						popoverContent.innerHTML += `
+							<div id="popBtns">
+								<button type="button" class="btn btn-secondary popBtn popBtnClose" onclick="closePop()">Close</button>
+							</div>
+						`;
+					}
+					
+					
+					return popoverContent;
+				},
+				html: true,
+				template: '<div class="popover" role="tooltip"><div class="arrow"></div><h4 class="reserveHead"><b>Reserve</b></h4><hr class="hrPop"><div class="popover-body"></div></div>',
+			});
+		});
+
+		//init new elements
+		var br = document.createElement('br');
+		var gridRow = document.createElement('div');
+		var gridGroup = document.createElement('div');
+		var gridBtn = document.createElement('button');
+		// var myObj = JSON.parse(GLOBAL_lab_format);
+
+		var row = GLOBAL_lab_format["" + GLOBAL_lab.trim()][0];
+		var col = GLOBAL_lab_format["" + GLOBAL_lab.trim()][1];
+		var seats = GLOBAL_lab_format["" + GLOBAL_lab.trim()][2];
+
+		//set elements
+		gridRow.className = "gridRow";
+		gridGroup.className = "gridGroup";
+		gridBtn.setAttribute('type', 'button');
+		gridBtn.className = "btn btn-warning activeGrid grid";
+
+		//automating the grid
+		for (var i = 0; i < row; i++) {
+			document.getElementById("reservegrid").appendChild(br.cloneNode());
+
+			var currRow = gridRow.cloneNode();
+
+			for (var j = 0; j < col; j++) {
+				var currGroup = gridGroup.cloneNode();
+
+				for (var k = 0; k < seats; k++) {
+					var currBtn = gridBtn.cloneNode();
+					var tempBool = true;
+
+					// currBtn.setAttribute("data-toggle", "popover");
+					// currBtn.setAttribute("onclick", "activeSeat(id)");
+
+					var generatedSeat = String.fromCharCode(i + 65) + ((j * seats) + (k + 1)).toString().padStart(2, '0');
+					var curBtnID =  GLOBAL_date.trim().replace(/\s+/g, '') + "_" + GLOBAL_time.trim().split(' ')[0] + "_" + GLOBAL_lab.trim() + "_" + generatedSeat ;
+
+					currBtn.id = curBtnID;
+
+					for (var x = 0; x < GLOBAL_unavailableSeats.length; x++) {
+						
+						if (curBtnID == GLOBAL_unavailableSeats[x].substring(0, GLOBAL_unavailableSeats[x].lastIndexOf('_'))) {
+							currBtn.className = "btn btn-warning takenSeats activeGrid grid";
+							currBtn.setAttribute("data-toggle", "popoverReserved");
+
+							currBtn.setAttribute("onclick", "activeSeat(id)");
+
+							tempBool = false;
+						}
+
+					}
+
+					for (var x = 0; x < GLOBAL_selectedSeats.length; x++) {
+						var selectedSeat = GLOBAL_selectedSeats[x];
+						var lastUnderscoreIndex = selectedSeat.lastIndexOf('_');
+						var secondLastUnderscoreIndex = selectedSeat.lastIndexOf('_', lastUnderscoreIndex - 1);
+
+						if (curBtnID == GLOBAL_selectedSeats[x].substring(0, secondLastUnderscoreIndex)) {
+							currBtn.className = "btn btn-warning availSeats activeGrid grid";
+							currBtn.setAttribute("data-toggle", "popoverReserved");
+							currBtn.setAttribute("onclick", "activeSeat(id)");
+
+							tempBool = false;
+						}
+
+					}
+
+					if (tempBool) {
+						currBtn.setAttribute("data-toggle", "popover");
+						currBtn.setAttribute("onclick", "activeSeat(id)");
+					}
+
+					currGroup.appendChild(currBtn);
+				}
+
+				currRow.appendChild(currGroup);
+			}
+
+			document.getElementById("reservegrid").appendChild(currRow);
+		}
+	}
+	
+	// CODE
+
+	//date iterations
+	var dateToday = new Date();
+	dateToday.setDate(dateToday.getDate());
+	var dateTodaySplit = dateToday.toString().split(' ');
+	var dateBtn = document.createElement('button');
+
+	var formOptions = document.createElement('option');
+
+	for (var i = 0; i < 7; i++) {
+
+		dateTodaySplit = dateToday.toString().split(' ');
+		
+		var currDate = dateBtn.cloneNode();
+		var currOption = formOptions.cloneNode();
+		var altCurrOption = formOptions.cloneNode();
+
+		if (i == 0) {
+			// currDate.className = "btndates activeDate";
+			currDate.className = "btndates";
+		} else {
+			currDate.className = "btndates";
+		}
+
+		currDate.id = dateTodaySplit[1] + dateTodaySplit[2];
+		currDate.appendChild(document.createTextNode(dateTodaySplit[1] + " " + dateTodaySplit[2] + ", " + dateTodaySplit[3]));				
+		currDate.setAttribute("onclick", "activeDate(id)");
+		document.getElementById("dates").appendChild(currDate);
+
+		currOption.id = "search_" + dateTodaySplit[1] + dateTodaySplit[2];
+		currOption.appendChild(document.createTextNode(dateTodaySplit[1] + " " + dateTodaySplit[2] + ", " + dateTodaySplit[3]));
+		document.getElementById('searchDateForm').appendChild(currOption);
+
+		altCurrOption.id = "edit_" + dateTodaySplit[1] + dateTodaySplit[2];
+		altCurrOption.appendChild(document.createTextNode(dateTodaySplit[1] + " " + dateTodaySplit[2] + ", " + dateTodaySplit[3]));
+		document.getElementById('editDateForm').appendChild(altCurrOption);
+
+		dateToday.setDate(dateToday.getDate() + 1);
+	}
+	//date iterations
+
+	// time iterations
+	var time = new Date("2023-10-16T07:00:00");
+	var timeLi = document.createElement('li');
+	var timeLink = document.createElement('a');
+	var endTime = 19;
+	timeLink.className = "dropdown-item";
+	timeLink.setAttribute("onclick", "activeTime(id)");
+	
+	while (time.getHours() < endTime) {
+		var currTimeLi = timeLi.cloneNode();
+		var currTimeLink = timeLink.cloneNode();
+		var currSearchFormOptions = formOptions.cloneNode();
+		var currEditFormOptions = formOptions.cloneNode();
+
+		currTimeLink.id = time.getHours() + ":" + time.getMinutes().toString().padEnd(2, '0');
+		currTimeLink.appendChild(document.createTextNode(time.getHours() + ":" + time.getMinutes().toString().padEnd(2, '0')));
+
+		currTimeLi.appendChild(currTimeLink);
+		document.getElementById("timeDropMenu").appendChild(currTimeLi);
+
+		currSearchFormOptions.id = time.getHours() + ":" + time.getMinutes().toString().padEnd(2, '0');
+		currSearchFormOptions.appendChild(document.createTextNode(time.getHours() + ":" + time.getMinutes().toString().padEnd(2, '0')));
+		document.getElementById("searchTimeForm").appendChild(currSearchFormOptions);
+
+		currEditFormOptions.id = time.getHours() + ":" + time.getMinutes().toString().padEnd(2, '0');
+		currEditFormOptions.appendChild(document.createTextNode(time.getHours() + ":" + time.getMinutes().toString().padEnd(2, '0')));
+		document.getElementById("editTimeForm").appendChild(currEditFormOptions);
+
+		if (time.getMinutes() < 30) {
+			time.setMinutes(0);
+			time.setMinutes(time.getMinutes() + 30); // Update minutes
+		} else {
+			time.setMinutes(0);
+			time.setHours(time.getHours() + 1); // Update hours
+		}
+	}
+	// time iterations
+
+	// lab iterations
+	for (var lab in GLOBAL_lab_format) {
+		var currEditLabOption = formOptions.cloneNode();
+		var currSearchLabOption = formOptions.cloneNode();
+
+		currSearchLabOption.id = lab;
+		currSearchLabOption.appendChild(document.createTextNode(lab));
+		document.getElementById('searchLabForm').appendChild(currSearchLabOption);
+
+		currEditLabOption.id = lab;
+		currEditLabOption.appendChild(document.createTextNode(lab));
+		document.getElementById('editLabForm').appendChild(currEditLabOption);
+	}
+	// lab iterations
+
+	GLOBAL_date = document.getElementsByClassName("activeDate")[0].textContent;
+
+	if (userType == 1) {
+		$("#studentAlert").css("display", "block");
+	} else if (userType == 2) {
+		$("#labTechAlert").css("display", "block");
+	} else {
+		$("#guestAlert").css("display", "block");
+	}
+
+	// search bar toggle button to user result
+
+	/*function relocate_usersResult()
+	{
+		location.href = `user_results.html`;
+	}*/
+
+	var input = document.getElementById("searchInput");
+	input.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			document.getElementById("searchbtn").click();
+		}
+	});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

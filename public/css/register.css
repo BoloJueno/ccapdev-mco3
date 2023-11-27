@@ -1,0 +1,73 @@
+
+#register{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#register-link{
+    color: black;
+}
+
+#register-button {
+    background-color: #fca311;
+    color: rgb(255, 255, 255);
+    height: 50px;
+    width: 100%;
+    border-radius: 50px;
+    margin: 10px auto 0px auto;
+    font-weight: bold;
+}
+
+.oblong-container {
+    border: 2px solid #E5E5E5; /* Add desired border properties */
+    border-radius: 20px; /* Adjust to control the oblong shape */
+    padding: 5px 0; /* Add padding for spacing inside the container */
+    display: flex;
+    align-items: center;
+    background-color: #E5E5E5;
+    color: #767676;
+}
+#register-who-use {
+    display: flex
+    justify-content: center;
+    text-align: center;
+}
+
+.form-check-input {
+    margin-right: 10px; /* Add spacing between radio buttons and labels */
+}
+
+.register-container {
+    background-color: white;
+    width: 40%;
+    margin: 5% 65px auto;;
+    border-radius: 40px;
+    padding: 20px;
+    flex-direction: column;
+    display: flex;
+}
+
+.userOption-container {
+    background-color: white;
+    border-radius: 40px;
+}
+
+.register-image-container {
+    width: 100%;
+}
+
+.image-format {
+    width: 65%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    justify-content: center;
+    padding: 50px;
+    background-image: url("../images/login_photo.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: fixed;
+    height: 100%;
+}

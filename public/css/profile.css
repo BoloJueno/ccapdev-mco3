@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@300&display=swap');
+
+:root {
+    --primary: #E5E5E5;
+    font-family: Gotham;
+}
+
+
+/* Navigation Bar Start */
+@font-face {
+    font-family: Gotham;
+    src: url("font/Gotham-font-family/Gotham/Gotham-Medium.otf");
+}
+
+@font-face {
+    font-family: Gotham-bold;
+    src: url("font/Gotham-font-family/Gotham/Gotham-Bold.otf");
+    /* font-weight: bold; */
+}
+
+@font-face {
+    font-family: Gotham-light;
+    src: url("font/Gotham-font-family/Gotham/Gotham-Light.otf");
+    /* font-weight: lighter; */
+}
+
+.headerlinks {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+header {
+    font-family: Gotham;
+    background-color: #14213D;
+    color: white;
+    /* height: 60px; */
+    width: 100%;
+    display: flex;
+    position: sticky;
+    /* padding-left: 10px; */
+    top: 0;
+    z-index: 1;
+}
+
+#logo {
+    max-width: 73px;
+    margin-left: 20px;
+}
+
+body {
+    background-color: var(--primary);
+    margin: 0;
+}
+
+#company-name {
+    font-size: 31px;
+    flex: 1;
+    padding-left: 35px;
+    padding-top: 14px;
+}
+
+.home-page {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 1.5rem;
+}
+
+.home-page:hover {
+    background-color: #fca311;
+    color: black;
+}
+
+#login {
+    background-color: #fca311;
+    color: black;
+}
+
+/* Navigation Bar - Dropdown Start */
+
+.dropdown {
+    position: fixed;
+    background-color: #fca311;
+    padding: 18px;
+}
+
+
+.headBtn {
+    background-color: transparent !important;
+    border: none !important;
+    color: black !important;
+}
+
+body {
+    background-color: #E5E5E5 !important;
+}
+
+/* Navigation Bar - Dropdown End */
+/* Nagivation Bar End */
+
+/* Main-Profile Start */
+.mainContainer {
+    position: relative;
+    margin-top: 1%;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profContainer {
+    background-color: #14213D;
+    height: 100%;
+    width: 85%;
+}
+
+.timelineContainer {
+    background-color: white;
+
+}
+
+.timelinePng {
+    width: 100%;
+    height: 30%;
+    object-fit: cover;
+}
+
+.profTemp {
+    background-color: #14213D;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    top: -115px;
+    left: 30px;
+}
+
+.profPng {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    position: relative;
+    top: -301px;
+    left: 43px;
+    objectfit: cover;
+}
+
+.descContainer {
+    background-color: transparent;
+    width: 100%;
+    height: 49%;
+    position: relative;
+    top: -55%;
+    color: white;
+    font-family: Gotham;
+    line-height: 2em;
+}
+
+.userName {
+    font-weight: bolder;
+    font-size: 33px;
+    padding-left: 40px;
+}
+
+.ID {
+    font-size: 20px;
+    font-family: Gotham-light !important;
+    line-height: 3em;
+    margin-top: -9px;
+    background-color: transparent;
+    padding-left: 40px;
+}
+
+.btnContainer {
+    width: 220px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    z-index: 1;
+    margin-top: -275px;
+    margin-left: 77%;
+}
+
+.btnRadius {
+    border: white;
+}
+/* Main-Profile End */
+
+.rsvContainer {
+    background-color: black;
+    position: fixed;
+    width: 100%;
+    height: 400px;
+    margin-top: 60rem;
+    color: white;
+}

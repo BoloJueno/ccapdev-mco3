@@ -1,0 +1,351 @@
+#lablist {
+    width: 15%;
+    height: 100%;
+    background-color: #545454 !important;
+    font-family: Gotham !important;
+    position: fixed;
+    left: 0;
+    top: 72;
+}
+
+body {
+    background-color: #E5E5E5 !important;
+}
+
+.accordion-button {
+    background-color: #545454 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.accordion-button:focus {
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.accordion-body {
+    border-top: 4px solid #404040 !important;
+    background-color: #737373 !important;
+    color: white !important;
+    padding: 0px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    box-shadow: none !important;
+}
+
+.accordion-item {
+    border: none !important;
+}
+
+.labs, .infoSeats {
+    padding: 14px;
+    padding-left: 30px;
+}
+
+.labdiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.labbtn, .infoSeatBtn {
+    text-align: left !important;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.activeLab, .activeSeat {
+    background-color: #999999 !important;
+}
+
+.accordion-button.collapsed::after, .accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+
+#rightint {
+    font-family: Gotham-light;
+    width: 85%;
+    margin-left: auto;
+}
+
+#rightinthead {
+    position: sticky;
+    top: 72;
+    z-index: 1;
+    display: flex;
+    background-color: white;
+    border-bottom: 1px solid #737373;
+}
+
+#dates {
+    flex: 1;
+    gap: 0px;
+}
+
+.btndates {
+    padding: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.activeDate {
+    background-color: #D9D9D9;
+}
+
+.btndates:hover {
+    background-color: #D9D9D9 !important;
+}
+
+#timeDropdown {
+    background-color: white;
+    color: black;
+    border: none;
+    margin-right: 44px;
+    border-radius: 0%;
+}
+
+#timeDropdown:hover {
+    background-color: #D9D9D9;
+}
+
+#screen {
+    background: white;
+    transform: perspective(8px) rotateX(-1deg);
+    margin: auto auto;
+    margin-bottom: 20px;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+}
+
+#reservebody {
+    margin: auto auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 80%;
+}
+
+.grid {
+    /* background-color: #FCA311 !important; */
+    background-color: #A4A4A4 !important;
+    border: transparent !important;
+    border-radius: 0% !important;
+    padding: 30px 50px 0px 0px !important;
+}
+
+.grid:hover {
+    /* background-color: #FFB741 !important; */
+    background-color: rgb(186, 186, 186) !important;
+}
+
+.availSeats {
+    /* background-color: #A4A4A4 !important; */
+    background-color: #FCA311 !important;
+}
+
+.availSeats:hover {
+    background-color: #FFB741 !important;
+    /* background-color: rgb(186, 186, 186) !important; */
+}
+
+.takenSeats {
+    background-color: #545454 !important;
+}
+
+.takenSeats:hover {
+    background-color: #6c6c6c !important;
+}
+
+#reservegrid {
+    width: 50%;
+    margin: auto auto;
+}
+
+.gridGroup {
+    display: flex;
+    gap: 10px !important;
+}
+
+.gridRow {
+    display: flex;
+    width: 100%;
+    gap: 40px;
+    justify-content: center;
+}
+
+.reserveeLink {
+    color: #545454;
+}
+
+.bs-popover-auto, #examplePopover {
+    background-color: white !important;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #545454;
+    width: 25%;
+}
+
+#popBtns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.popBtn {
+    width: 40%;
+}
+
+.popBtnRsrv {
+    background-color: #FCA311 !important;
+    border: none !important;
+}
+
+.popBtnClose {
+    background-color: #14213D !important;
+}
+/* 
+#examplePopover {
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate3d(366.4px, 263.2px, 0px);;
+} */
+
+.popover-header {
+    background-color: transparent !important;
+}
+
+.reserveHead {
+    margin: 0px;
+}
+
+.popover-body {
+    padding: 0px !important;
+}
+
+.pPop {
+    margin-bottom: 10px;
+}
+
+.hrPop {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#reserveInfo {
+    display: flex;
+    /* margin-top: 30px; */
+}
+
+.infoHead {
+    font-family: Gotham-bold;
+}
+
+#infoBtns {
+    font-family: Gotham-bold;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+#leftInfo {
+    background-color: white;
+    padding-top: 30px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 50px;
+    /* width: 70%; */
+    flex: 2;
+}
+
+#leftInfoBody {
+    width: 75%;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin: auto auto;
+}
+
+#rightInfo {
+    /* width: 30%; */
+    flex: 1;
+    background-color: #A4A4A4;
+    color: white;
+    padding: 30px;
+    border-left: 10px solid #7e7e7e;
+    border-right: 10px solid #7e7e7e;
+}
+
+.accordionInfo {
+    width: 100% !important;
+}
+
+.infoBtn {
+    width: 100%;
+}
+
+#seatInfo {
+    font-family: Gotham-bold;
+}
+
+.blueText {
+    color: #14213D;
+}
+
+.infoText {
+    display: none;
+}
+
+#farRight {
+    background-color: white;
+    display: flex;
+    flex: 1;
+    padding: 30px;
+}
+
+#legends {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto auto;
+    margin-bottom: 40px;
+}
+
+.legendsDesc {
+    display: flex;
+}
+
+.descLegend {
+    margin-top: auto; margin-bottom: auto;
+}
+
+.form-check {
+    padding-left: 1.5em !important;
+    margin-bottom: 0px !important;
+}
+
+.alert {
+    z-index: 0;
+}
+
+.alert-dismissible .btn-close {
+    z-index: 0 !important;
+}
+
+#searchSeatsDiv {
+    display: flex;
+}
+
+#liveAlertBtn {
+    text-align: start;
+}
+
+#searchUserForm {
+    margin-bottom: 0px;
+}

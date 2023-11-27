@@ -1,0 +1,372 @@
+<!-- Navigation Bar Start-->
+{{> header}}
+<!-- Navigation Bar End-->
+
+<!-- Modals Start-->
+<modal>
+        <!-- Modal Edit Profile Start-->
+<form class="editProfileForm" method="POST" id="editReservationProfForm" action="/editProfile/{{data.id}}" enctype="multipart/form-data">
+    <div class="modal m-itm1Modal fade modalContainer1" id="editProfileModal" role="dialog">
+        <div class="modal-dialog modal-xl modalItm1-Ctn" role="document">
+            <div class="modal-content m-itm1-content">
+                <div class="m-itm1-header">
+                    <button type="button" class="close m-itm1-close" data-bs-dismiss="modal" data-bs-target="#editProfileModal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    Edit Profile
+                    <div class="m-itm1-btnCenter">
+                    <div class="m-itm1-btnContainer">
+                        <button type="submit" class="btn btnYellow btn-outline-light">Save</button>
+                    </div>
+                    </div>
+                    <input type="file" id="file" name="image">
+                    <label for="file" id="uploadBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi uploadCamera bi-camera" viewBox="0 0 16 16">
+                        <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
+                        <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                    </svg>
+                    </label>
+                </div>
+                <div class="modal-body m-itm1-bodyContainer">
+                    <div class="m-itm1-timeline">
+                        <img src="../images/timeline.jpg" class="timelineModal">
+                    </div>
+                    <div class="m-itm1-profile">
+                        <img src="{{data.img}}" alt="" class="profModal">
+                    </div>
+                    <div class="m-itm1-body">
+                        <div class="warning">
+                                 <input class="editProfileInput" value="{{data.bio}}" type="text" id="editProfileDesc" name="editProfileDesc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+        <!-- Modal Edit Profile End-->
+
+    <!-- Modal Log Out Start-->
+    <div class="modal m-itm2Modal fade modalContainer2" id="signOutModal" role="dialog">
+        <div class="modal-dialog modal-xl modalItm2-Ctn" role="document">
+            <div class="modal-content">
+                <div class="m-itm2-header">Sign out of ReserveLabs</div>
+                <div class="modal-body m-itm2-bodyContainer">
+                    <div class="m-itm2-body">
+                        <div class="warning">
+                        <p class="m-itm2-description">Any unchanged changes will not be saved. Make sure you were able to complete all the reservations in order to avoid risking of losing slots.</p>
+                    </div>
+                
+                        <div class="modal-footer m-itm2-btnCenter">
+                            <div class="m-itm3-btnContainer">
+                                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal" data-bs-target="#signOutModal">Close</button>
+                                <a href="/logout" class="btn btn-outline-light" role="button">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Modal Log Out End-->
+
+    <!-- Modal Delete Account Start-->
+    <form class="deleteProfile" method="POST" id="deleteProfile" action="/deleteProfile/{{data.id}}">
+    <div class="modal m-itm3Modal fade modalContainer3" id="deleteAccModal" role="dialog">
+        <div class="modal-dialog modal-xl modalItm3-Ctn" role="document">
+            <div class="modal-content">
+            <div class="m-itm3-header">Deletion of Account</div>
+            <div class="modal-body m-itm3-bodyContainer">
+                <div class="m-itm3-body">
+                    <div class="warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-diamond" viewBox="0 0 16 16">
+                            <path d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                        </svg>
+                        WARNING!
+                    </div>
+                    <p class="m-itm3-description">Clicking "Delete" will remove your account forever. Data cannot be reversed and retrieved after changes made.</p>
+                
+            
+                <div class="modal-footer m-itm3-btnCenter">
+                    <div class="m-itm3-btnContainer">
+                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal" data-bs-target="#deleteAccModal">Close</button>
+                            <button type="button" class="btn btnModalDelete btn-outline-light" onclick="deleteProfile()">Delete</button>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!-- Modal Delete Account End-->
+
+    <!-- Modal Reservation Form Start -->
+    <div class="modal fade" id="ReserveEditModal" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
+        <div class="modal-dialog rsvEditModal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Reservation</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" method="POST" id="editFormId">
+                        <div class="col-md-5">
+                            <label for="seatNo" class="form-label">Seat # (i.e. A09)</label>
+                            <input type="text" class="form-control" id="seatNo" name="seatNo" placeholder=" B04">
+                        </div>
+                        <div class="col-md-7">
+                            <label for="editLabForm" class="form-label">Lab</label>
+                            <select id="editLabForm" class="form-select" name="editLabForm">
+                                <option id="GK101A">GK101A</option><option id="GK304A">GK304A</option><option id="GK304B">GK304B</option><option id="AG702">AG702</option><option id="AG1904">AG1904</option><option id="LS209">LS209</option><option id="LS311">LS311</option></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editDateForm" class="form-label">Date</label>
+                            <select id="editDateForm" class="form-select" name="editDateForm">
+                                <option id="edit_Oct6">Oct 6, 2023</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editTimeForm" class="form-label">Time</label>
+                            <select id="editTimeForm" class="form-select" name="editTimeForm">
+                                <option id="7:00">7:00</option><option id="7:30">7:30</option><option id="8:00">8:00</option><option id="8:30">8:30</option><option id="9:00">9:00</option><option id="9:30">9:30</option><option id="10:00">10:00</option><option id="10:30">10:30</option><option id="11:00">11:00</option><option id="11:30">11:30</option><option id="12:00">12:00</option><option id="12:30">12:30</option><option id="13:00">13:00</option><option id="13:30">13:30</option><option id="14:00">14:00</option><option id="14:30">14:30</option><option id="15:00">15:00</option><option id="15:30">15:30</option><option id="16:00">16:00</option><option id="16:30">16:30</option><option id="17:00">17:00</option><option id="17:30">17:30</option><option id="18:00">18:00</option><option id="18:30">18:30</option></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a class="btn btn-warning" id="editTrigger" onclick="document.getElementById('editFormId').submit();">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Reservation Form End -->
+
+    <!--Modal Delete Reservation Start -->
+    <div class="modal fade" id="deleteReserveModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
+        <div class="modal-dialog rsvEditModal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" id="deleteTrigger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Delete Reservation End -->
+</modal>
+
+<!-- Modals End-->
+
+<!-- Main Profile Start-->
+<main>
+    <div class="profContainer">
+        <div class="parentGrid">
+            <div class="gItems gridItem1">
+                <img src="../images/timeline.jpg" class="timelinePng">
+            </div>
+            <div class="gItems gridItem2">
+                <img src="{{data.img}}" alt="" class="profPng">
+            </div>
+            <div class="gItems gridItem3">
+                <div class="btnContainer">
+                    <button type="button" class="btn btnRadius btn-outline-light" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+                    <button type="button" class="btn btnRadius btn-outline-light" data-bs-toggle="modal" data-bs-target="#signOutModal">Log Out</button>
+                    <button type="button" class="btn btnDel btn-outline-light" data-bs-toggle="modal" data-bs-target="#deleteAccModal">Delete Acc</button>
+                </div>
+            </div>
+            <div class="gItems gridItem4">
+                <div class="userName">{{data.firstName}} {{data.lastName}}</div>
+                <p class="ID">ID #{{data.IDno}} | {{data.type}} </p>
+                <p class="ID">{{data.bio}}</p>
+                <p class="ID">Email address: {{data.email}}</p>
+            </div>
+        </div>
+    </div>
+    {{#if result.length}}
+    {{#each result}}
+        <div class="rsvCtn">
+            <div class="rsvParent">
+                <div class="rsvBlk rsvBlk1"> Group ID #{{this._id}}</div>
+                <div class="rsvBlk rsvCtg">
+                    <div class="rsvCategory A1">Seat number</div>
+                    <div class="rsvCategory A2">Laboratory</div>
+                    <div class="rsvCategory A3">Date of Request</div>
+                    <div class="rsvCategory A4">Date of Reservation</div>
+                    <div class="rsvCategory A5"></div>
+                </div>
+                <div class="rsvBlk rsvInfo" id="reserveInfo">
+                    {{#each this.reservations}}
+                        <div class="rsvInformation seat">{{this.seat}}</div>
+                        <div class="rsvInformation lab">{{this.lab}}</div>
+                        <div class="rsvInformation dateRequest">{{this.reqDate}}</div>
+                        <div class="rsvInformation dateReservation {{this._id}}">{{this.resDate}}</div>
+                        <div class="rsvInformation space">
+                            <button class="btnEditReserve" id="{{this._id}}_{{this.seat}}_{{this.lab}}" data-bs-toggle="modal" data-bs-target="#ReserveEditModal" onclick="editModal(id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#A4A4A4" class="bi bi-pencil-square me-3" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                            </button>
+                            <button class="btnEditReserve" id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#deleteReserveModal" onclick="deleteModal(id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi trashColor bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+    {{else}}
+    <div class="rsvCtn">
+        <h2>No Reservations</h2>
+    </div>
+    {{/if}}
+</main>
+<!-- Main Profile End-->
+
+<script>
+        function relocate_login()
+        {
+            location.href = `/login`;
+        }
+
+        function deleteReservation()
+        {
+            document.getElementById('reserveInfo').style.display = 'none';
+        }
+
+        function relocate_usersResult()
+        {
+            location.href = `/user_results`;
+        }
+
+        var input = document.getElementById("searchInput");
+        input.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("searchbtn").click();
+            }
+        });
+
+
+
+        function deleteProfile()
+        {
+                fetch('/deleteProfile/{{data.id}}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: '{{data.id}}' }), // Assuming data.id is a variable
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    location.href = '/login'; // Make sure to wrap the URL in quotes
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+</script>
+
+<script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous">
+</script>
+
+<script>
+    let reqDates = document.getElementsByClassName('dateRequest')
+    let resDates = document.getElementsByClassName('dateReservation')
+
+    for (var i = 0; i < reqDates.length; i++) {
+        reqDates[i].innerHTML = reqDates[i].textContent.substring(4, 25);
+    }
+
+    for (var i = 0; i < resDates.length; i++) {
+        resDates[i].innerHTML = resDates[i].textContent.substring(4, 25);
+    }
+
+    function deleteModal(id) {
+        $('#deleteTrigger').attr('href', `/profile/delete/${id}/{{data.id}}`)
+    }
+
+    function editModal(id) {
+        $('#editFormId').attr('action', `/profile/edit/${id.split('_')[0]}/{{data.id}}`)
+        $('#seatNo').val(id.split('_')[1])
+        $(`option#${id.split('_')[2]}`).prop('selected', true);
+        let dateString = "edit_" + document.getElementsByClassName(`${id.split('_')[0]}`)[0].textContent.replace(/\s/g, '').substring(0, 5);
+    }
+
+    let btns = $('.btnEditReserve')
+
+    for (var i = 0; i < btns.length; i++) {
+        $(btns[i]).css('display', 'none');
+        {{#if session}}
+            if ('{{user}}' === 'Lab Technician' || "{{sessionID}}" === "{{data.id}}") {
+                $(btns[i]).css('display', 'block');
+            }
+        {{/if}}
+    }
+
+    let btnCont = $('.btnContainer')
+
+    for (var i = 0; i < btnCont.length; i++) {
+        $(btnCont[i]).css('display', 'none');
+        {{#if session}}
+            if ("{{sessionID}}" === "{{data.id}}") {
+                $(btnCont[i]).css('display', 'flex');
+            }
+        {{/if}}
+    }
+
+
+    //date iterations
+	var dateToday = new Date();
+	dateToday.setDate(dateToday.getDate());
+	var dateTodaySplit = dateToday.toString().split(' ');
+	var dateBtn = document.createElement('button');
+
+	var formOptions = document.createElement('option');
+
+	for (var i = 0; i < 7; i++) {
+
+		dateTodaySplit = dateToday.toString().split(' ');
+		
+		var currDate = dateBtn.cloneNode();
+		var currOption = formOptions.cloneNode();
+		var altCurrOption = formOptions.cloneNode();
+
+		if (i == 0) {
+			// currDate.className = "btndates activeDate";
+			currDate.className = "btndates";
+		} else {
+			currDate.className = "btndates";
+		}
+
+		altCurrOption.id = "edit_" + dateTodaySplit[1] + dateTodaySplit[2];
+		altCurrOption.appendChild(document.createTextNode(dateTodaySplit[1] + " " + dateTodaySplit[2] + ", " + dateTodaySplit[3]));
+		document.getElementById('editDateForm').appendChild(altCurrOption);
+
+		dateToday.setDate(dateToday.getDate() + 1);
+	}
+    //date iterations
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
