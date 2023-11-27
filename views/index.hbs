@@ -419,7 +419,7 @@
 		GLOBAL_unavailableSeats.push(string);
 	{{/each}}
 	
-	setInterval(getReservedSeats, 1000);
+	setInterval(getReservedSeats, 5000);
 
 	async function getReservedSeats() {
 		removeGrid();
