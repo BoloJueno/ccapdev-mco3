@@ -302,6 +302,12 @@ routes.route("/login").post(async (req, res, next) => {
 //=========================CRUD=================================
 
 //delete reservations index
+routes.route("/getReservations").get(async(req, res) => {
+    const results = await controller.aggregateReservations()
+    res.json({results});
+});
+
+//delete reservations index
 routes.route("/index/delete/:id").get(function(req, res) {
     let id = req.params.id;
 
