@@ -384,6 +384,7 @@
 
 	var GLOBAL_alt_reservations = {};
 
+	
 	{{#each data}}
 		var tempResDate = "{{this.resDate}}";
 		var tempResDateDate = tempResDate.split(' ')[1] + parseInt(tempResDate.split(' ')[2], 10) + "," + tempResDate.split(' ')[3]
@@ -412,6 +413,45 @@
 
 		GLOBAL_unavailableSeats.push(string);
 	{{/each}}
+	
+	setInterval(getReservedSeats, 1000);
+
+	async function getReservedSeats() {
+		removeGrid();
+		const response = await fetch(`/getReservations`,  {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+
+		const results = await response.json();
+		
+		for (var i = 0; i < results["results"].length; i++) {
+			var tempResDate = new Date(results["results"][i].resDate).toString();
+			var tempResDateDate = tempResDate.split(' ')[1] + parseInt(tempResDate.split(' ')[2], 10) + "," + tempResDate.split(' ')[3]
+			var tempResDateHour = tempResDate.split(' ')[4].split(':')[0];
+			var tempResDateMin = tempResDate.split(' ')[4].split(':')[1];
+			var string = tempResDateDate + "_" + parseInt(tempResDateHour, 10) + ":" + tempResDateMin + "_" + results["results"][i].lab + "_" + results["results"][i].seat + "_" + results["results"][i].anon;
+			var altString = tempResDateDate + "_" + parseInt(tempResDateHour, 10) + ":" + tempResDateMin + "_" + results["results"][i].lab + "_" + results["results"][i].seat;
+			GLOBAL_alt_reservations[altString] = {id: results["results"][i]._id};
+
+			if (results["results"][i].reservedStud) {
+				GLOBAL_reservations[string] = {id: 'results["results"][i].reservedStud'};
+			} else {
+				GLOBAL_reservations[string] = {id: 'results["results"][i].reservedStud'};
+			}
+
+			if (results["results"][i].studReservee != '') {
+				GLOBAL_reservees[string.substring(0, string.lastIndexOf('_'))] = {firstName: results['results'][i].studReservee[0].firstName, lastName: results['results'][i].studReservee[0].lastName, id: results['results'][i].studReservee[0]._id, reservation: string};
+			} else {
+				GLOBAL_reservees[string.substring(0, string.lastIndexOf('_'))] = {firstName: results['results'][i].reservee[0].firstName, lastName: results['results'][i].reservee[0].lastName, id: results['results'][i].reservee[0]._id, reservation: string};
+			}
+
+			GLOBAL_unavailableSeats.push(string);
+
+		}	
+	}
 
 	function deleteReservation() {
 		console.log(GLOBAL_complete_seat_ID);
