@@ -529,6 +529,46 @@
 		activeTime(GLOBAL_time.trim());
 	}
 
+	document.getElementById('editReservationForms').addEventListener("change", async function (e) {
+		let seatnoVal = document.getElementById('seatNo').value;
+		let labVal = document.getElementById('editLabForm').value;
+		let dateVal = document.getElementById('editDateForm').value;
+		let timeVal = document.getElementById('editTimeForm').value;
+
+		$('#seatNoValidator').css('display', 'none');
+		$('#seatNo').attr('class', 'form-control');
+		$('#editLabText').css('display', 'none');
+		$('#editTrigger').attr('class', 'btn btn-info');
+
+		if (
+			seatnoVal.slice(1) > GLOBAL_lab_format[`${labVal}`][1] * GLOBAL_lab_format[`${labVal}`][2] ||
+			seatnoVal.slice(1) <= 0 ||
+			seatnoVal.slice(1).length != 2 ||
+			seatnoVal.slice(0, -2).charCodeAt(0) < 65 ||
+			seatnoVal.slice(0, -2).charCodeAt(0) > 65 + GLOBAL_lab_format[`${labVal}`][0] - 1
+		) {
+			$('#seatNoValidator').css('display', 'block');
+			$('#seatNoValidator').css('cssText', 'display: block !important');
+			$('#seatNo').attr('class', 'form-control is-invalid');
+			$('#editTrigger').attr('class', 'btn btn-info disabled');
+		} else {
+			const response = await fetch(`/checkSeatAvail?seatnoVal=${seatnoVal}&labVal=${labVal}&dateVal=${dateVal}&timeVal=${timeVal}`,  {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				}
+			})
+
+			const results = await response.json();
+
+			if (results.exists != '') {
+				$('#seatNo').attr('class', 'form-control is-invalid');
+				$('#editLabText').css('display', 'block');
+				$('#editTrigger').attr('class', 'btn btn-info disabled');
+			}
+		}
+	});
+
 	function activeLab(lab) {
 
 		var labs = document.getElementsByClassName("labs");
