@@ -31,6 +31,9 @@
 					<div class="col-md-5">
 						<label for="seatNo" class="form-label">Seat # (i.e. A09)</label>
 						<input type="text" class="form-control" id="seatNo" name="seatNo">
+						<div id="seatNoValidator" class="invalid-feedback">
+							Input a valid seat
+						</div>
 					</div>
 					<div class="col-md-7">
 						<label for="editLabForm" class="form-label">Lab</label>
@@ -51,6 +54,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
+				<p class="text-danger" id="editLabText" style="display: none;">Seat is already taken!</p>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				<a type="button" class="btn btn-info" onclick="document.getElementById('editReservationForms').submit();" id="editTrigger">Edit</a>
 			</div>
