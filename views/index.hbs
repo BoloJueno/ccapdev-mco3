@@ -740,7 +740,7 @@
 			document.getElementsByClassName("infoLabMajor")[0].innerHTML = GLOBAL_lab.trim();
 			document.getElementsByClassName("infoLabMajor")[0].setAttribute('data-bs-target', '#' + GLOBAL_lab.trim());
 			document.getElementsByClassName("infoLabMajor")[0].setAttribute('aria-controls', GLOBAL_lab.trim());
-			document.getElementsByClassName("infoSeats")[0].innerHTML = "Seat " + GLOBAL_seat_ID.trim();
+			document.getElementsByClassName("infoSeats")[0].innerHTML = "Seat " + GLOBAL_seat_ID.trim() + " | " + GLOBAL_date + " | " + GLOBAL_time;
 			document.getElementsByClassName("infoSeats")[0].id = seatId + "_info";
 			document.getElementsByClassName("infoLabdiv")[0].id = GLOBAL_lab.trim() + "_infoLabBtns";
 			document.getElementsByClassName("infoCollapse")[0].id = GLOBAL_lab.trim();
@@ -750,7 +750,7 @@
 			GLOBAL_no_reserve++;
 		} else {
 			var btn = document.createElement('button');
-			var textNode = document.createTextNode("Seat " + GLOBAL_seat_ID.trim());
+			var textNode = document.createTextNode("Seat " + GLOBAL_seat_ID.trim() + " | " + GLOBAL_date + " | " + GLOBAL_time);
 			var labsReserved = document.getElementsByClassName("infoLabMajor");
 			var newLab = true;
 
