@@ -71,6 +71,7 @@ routes.route("/").get(async (req, res, next) => {
                 data: reservationsData, 
                 user: 0, 
                 session: req.session.user,
+                sessionIDno: req.session.user.IDno,
                 sessionID: req.session.user._id,
                 firstName: req.session.user.firstName,
                 lastName: req.session.user.lastName
