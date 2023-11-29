@@ -351,7 +351,17 @@
 
 	var queryParams = new URLSearchParams(window.location.search);
 
-	var userType = {{user}};
+	let tempUserType;
+
+    if ("{{session.type}}" == 'Student') {
+        tempUserType = 1;
+    } else if ("{{session.type}}" == 'Lab Technician') {
+        tempUserType = 2;
+    } else {
+        tempUserType = 0
+    }
+
+	var userType = tempUserType;
 	var GLOBAL_seat_ID;
 	var GLOBAL_lab = document.getElementsByClassName("activeLab")[0].textContent;
 	var GLOBAL_time = document.getElementById("timeDropdown").textContent;
