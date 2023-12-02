@@ -12,6 +12,7 @@ import multer from 'multer';
 import {fileURLToPath} from 'url';
 import session from "express-session";
 import { profile } from "console";
+import Controller from "./controller/Controller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -313,6 +314,12 @@ routes.route("/getReservations").get(async(req, res) => {
 routes.route("/checkSeatAvail").get(async(req, res) => {
     const result = req.query
     const exists = await Reservation.findAvailSeat(result);
+    res.json({exists});
+});
+
+routes.route("/checkIDno").get(async(req, res) => {
+    const result = req.query
+    const exists = await Controller.findIDno(result);
     res.json({exists});
 });
 
