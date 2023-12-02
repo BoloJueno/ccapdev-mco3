@@ -619,7 +619,9 @@
 
 	{{#if session}}
 		{{#if tabClose}}
-			$.get('/logout');
+			window.addEventListener('beforeunload', function (event) {
+				$.get('/logout');
+			});
 		{{/if}}
 	{{/if}}
 
