@@ -121,7 +121,8 @@ routes.route("/index/:id").get(async (req, res, next) => {
                 session: req.session.user,
                 sessionID: req.session.user._id,
                 firstName: req.session.user.firstName,
-                lastName: req.session.user.lastName
+                lastName: req.session.user.lastName,
+                tabClose: req.session.tabClose
             });
         } else {
             res.render('index', { 
@@ -302,10 +303,11 @@ routes.route("/login").post(async (req, res, next) => {
 
         if (rememberMeBox === 'on') {
             // Set maxAge to 10 seconds
-            req.session.cookie.maxAge = 5000; //21 * 24 * 60 * 60 * 1000  for 3 weeks
+            req.session.cookie.maxAge = 30000; //21 * 24 * 60 * 60 * 1000  for 3 weeks
           } else {
             // Set maxAge to null to make it a session cookie
             req.session.cookie.maxAge = null;
+            req.session.tabClose = true;
             console.log('gumana else');
            }
 
