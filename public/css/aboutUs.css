@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@300&display=swap');
+
+:root {
+    --primary: #E5E5E5;
+    font-family: Gotham;
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url("/font/Gotham-font-family/Gotham/Gotham-Medium.otf");
+}
+
+@font-face {
+    font-family: Gotham-bold;
+    src: url("/font/Gotham-font-family/Gotham/Gotham-Bold.otf");
+    /* font-weight: bold; */
+}
+
+@font-face {
+    font-family: Gotham-light;
+    src: url("/font/Gotham-font-family/Gotham/Gotham-Light.otf");
+    /* font-weight: lighter; */
+}
+
+body {
+    font-family: Gotham !important;
+}
+
+#mainDiv {
+    background-image: url(../images/aboutBG.png);
+    background-size: cover;
+}
+
+#mainDivText {
+    padding-top: 5%;
+    display: flex;
+    color: white !important;
+    justify-content: center;
+}
+
+#npmDivText {
+    display: flex;
+    justify-content: center;
+}
+
+.npmPic {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
