@@ -8,11 +8,17 @@ function hashPassword(password, salt, callback) {
     const hashBytes = 64;
     const digest = 'sha512';
 
-    crypto.pbkdf2(password, salt, iterations, hashBytes, digest, (err, derivedKey) => {
-        if (err) throw err;
-        callback(derivedKey.toString('hex'));
-    });
+    if (callback && typeof callback === 'function') {
+        crypto.pbkdf2(password, salt, iterations, hashBytes, digest, (err, derivedKey) => {
+            if (err) throw err;
+            callback(derivedKey.toString('hex'));
+        });
+    } else {
+        const derivedKey = crypto.pbkdf2Sync(password, salt, iterations, hashBytes, digest);
+        return derivedKey.toString('hex');
+    }
 }
+
 
 
 async function aggregateReservations() {
@@ -219,7 +225,6 @@ async function findProfile(email, password) {
 
         if (user && user.salt) {
             const hashedPassword = hashPassword(password, user.salt);
-
             if (hashedPassword === user.hashedPassword) {
                 return user;
             }
