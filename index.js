@@ -52,8 +52,6 @@ app.use(session({
     } 
     }));
 
-//app.use(SessionCookie());
-
 app.set('view engine', 'hbs');
 app.engine('hbs', exphbs.engine({
     layoutsDir: `${__dirname}/views/layouts`,
@@ -121,8 +119,7 @@ routes.route("/index/:id").get(async (req, res, next) => {
                 session: req.session.user,
                 sessionID: req.session.user._id,
                 firstName: req.session.user.firstName,
-                lastName: req.session.user.lastName,
-                tabClose: req.session.tabClose
+                lastName: req.session.user.lastName
             });
         } else {
             res.render('index', { 
@@ -283,7 +280,6 @@ routes.route("/results").get(async (req, res) =>{
             enteredQuery: query
         });
     }
-
 });
 
 //=========================posts=================================
@@ -301,15 +297,11 @@ routes.route("/login").post(async (req, res, next) => {
         req.session.user = user;
         req.session.authorized = true;
 
-        if (rememberMeBox === 'on') {
-            // Set maxAge to 10 seconds
-            req.session.cookie.maxAge = 30000; //21 * 24 * 60 * 60 * 1000  for 3 weeks
-          } else {
-            // Set maxAge to null to make it a session cookie
-            req.session.cookie.maxAge = null;
-            req.session.tabClose = true;
-            console.log('gumana else');
-           }
+        req.session.cookie.maxAge = rememberMeBox === 'on' ? 21 * 24 * 60 * 60 * 1000 : null;
+
+        // see expiration time
+        const expirationTime = new Date(Date.now() + req.session.cookie.maxAge);
+        console.log('Session expiration time:', expirationTime);
 
           let userType = req.session.user.type === 'Student' ? 1 : 2;
           res.redirect(`/index/${userType}`);
