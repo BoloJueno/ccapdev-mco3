@@ -5,12 +5,14 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import controller from "./controller/Controller.js";
+import Reservation from "./controller/Reservation.js";
 // import {allowInsecurePrototypeAccess} from '@handlebars/allow-prototype-access';
 import path from 'path';
 import multer from 'multer';
 import {fileURLToPath} from 'url';
 import session from "express-session";
 import { profile } from "console";
+import Controller from "./controller/Controller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -70,6 +72,7 @@ routes.route("/").get(async (req, res, next) => {
                 data: reservationsData, 
                 user: 0, 
                 session: req.session.user,
+                sessionIDno: req.session.user.IDno,
                 sessionID: req.session.user._id,
                 firstName: req.session.user.firstName,
                 lastName: req.session.user.lastName
@@ -300,6 +303,25 @@ routes.route("/login").post(async (req, res, next) => {
 //=========================posts=================================
 
 //=========================CRUD=================================
+
+//check reservations index
+routes.route("/getReservations").get(async(req, res) => {
+    const results = await controller.aggregateReservations()
+    res.json({results});
+});
+
+//check Avail Seat index
+routes.route("/checkSeatAvail").get(async(req, res) => {
+    const result = req.query
+    const exists = await Reservation.findAvailSeat(result);
+    res.json({exists});
+});
+
+routes.route("/checkIDno").get(async(req, res) => {
+    const result = req.query
+    const exists = await Controller.findIDno(result);
+    res.json({exists});
+});
 
 //delete reservations index
 routes.route("/index/delete/:id").get(function(req, res) {

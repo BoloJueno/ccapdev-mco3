@@ -201,3 +201,6 @@ body {
     z-index: 2;
 }
 
+.invalid-feedback {
+    display: none !important;
+}

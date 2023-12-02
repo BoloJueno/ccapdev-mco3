@@ -31,6 +31,9 @@
 					<div class="col-md-5">
 						<label for="seatNo" class="form-label">Seat # (i.e. A09)</label>
 						<input type="text" class="form-control" id="seatNo" name="seatNo">
+						<div id="seatNoValidator" class="invalid-feedback">
+							Input a valid seat
+						</div>
 					</div>
 					<div class="col-md-7">
 						<label for="editLabForm" class="form-label">Lab</label>
@@ -51,6 +54,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
+				<p class="text-danger" id="editLabText" style="display: none;">Seat is already taken!</p>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				<a type="button" class="btn btn-info" onclick="document.getElementById('editReservationForms').submit();" id="editTrigger">Edit</a>
 			</div>
@@ -71,13 +75,16 @@
 				<form class="row g-3">
 					<div class="col-md-12">
 						<label for="IDNo" class="form-label">ID #</label>
-						<input type="number" class="form-control" id="IDNo" name="IDNo" value="{{sessionIDno}}">
+						<input type="number" class="form-control" id="IDNo" name="IDNo" value="{{session.IDno}}">
+						<div id="IDNoValidator" class="invalid-feedback">
+							Input a ID #
+						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="editTrigger" onclick="reservePop()">Reserve</button>
+				<button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="reserveTrigger" onclick="reservePop()">Reserve</button>
 			</div>
 		</div>
 	</div>
@@ -347,7 +354,17 @@
 
 	var queryParams = new URLSearchParams(window.location.search);
 
-	var userType = {{user}};
+	let tempUserType;
+
+    if ("{{session.type}}" == 'Student') {
+        tempUserType = 1;
+    } else if ("{{session.type}}" == 'Lab Technician') {
+        tempUserType = 2;
+    } else {
+        tempUserType = 0
+    }
+
+	var userType = tempUserType;
 	var GLOBAL_seat_ID;
 	var GLOBAL_lab = document.getElementsByClassName("activeLab")[0].textContent;
 	var GLOBAL_time = document.getElementById("timeDropdown").textContent;
@@ -355,6 +372,7 @@
 	var GLOBAL_no_reserve = 0;
 	var GLOBAL_complete_seat_ID;
 
+	//rows, cols, seat/col
 	var GLOBAL_lab_format = {
 		"GK101A" : [9, 4, 2],
 		"GK304A" : [10, 3, 2],
@@ -384,6 +402,7 @@
 
 	var GLOBAL_alt_reservations = {};
 
+	
 	{{#each data}}
 		var tempResDate = "{{this.resDate}}";
 		var tempResDateDate = tempResDate.split(' ')[1] + parseInt(tempResDate.split(' ')[2], 10) + "," + tempResDate.split(' ')[3]
@@ -412,6 +431,50 @@
 
 		GLOBAL_unavailableSeats.push(string);
 	{{/each}}
+	
+	setInterval(getReservedSeats, 3000);
+
+	async function getReservedSeats() {
+		removeGrid();
+		GLOBAL_unavailableSeats = [];
+		{{!-- GLOBAL_alt_reservations = {};
+		GLOBAL_reservations = {};
+		GLOBAL_reservees = {}; --}}
+
+		const response = await fetch(`/getReservations`,  {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+
+		const results = await response.json();
+		
+		for (var i = 0; i < results["results"].length; i++) {
+			var tempResDate = new Date(results["results"][i].resDate).toString();
+			var tempResDateDate = tempResDate.split(' ')[1] + parseInt(tempResDate.split(' ')[2], 10) + "," + tempResDate.split(' ')[3]
+			var tempResDateHour = tempResDate.split(' ')[4].split(':')[0];
+			var tempResDateMin = tempResDate.split(' ')[4].split(':')[1];
+			var string = tempResDateDate + "_" + parseInt(tempResDateHour, 10) + ":" + tempResDateMin + "_" + results["results"][i].lab + "_" + results["results"][i].seat + "_" + results["results"][i].anon;
+			var altString = tempResDateDate + "_" + parseInt(tempResDateHour, 10) + ":" + tempResDateMin + "_" + results["results"][i].lab + "_" + results["results"][i].seat;
+			GLOBAL_alt_reservations[altString] = {id: results["results"][i]._id};
+
+			if (results["results"][i].reservedStud) {
+				GLOBAL_reservations[string] = {id: 'results["results"][i].reservedStud'};
+			} else {
+				GLOBAL_reservations[string] = {id: 'results["results"][i].reservedStud'};
+			}
+
+			if (results["results"][i].studReservee != '') {
+				GLOBAL_reservees[string.substring(0, string.lastIndexOf('_'))] = {firstName: results['results'][i].studReservee[0].firstName, lastName: results['results'][i].studReservee[0].lastName, id: results['results'][i].studReservee[0]._id, reservation: string};
+			} else {
+				GLOBAL_reservees[string.substring(0, string.lastIndexOf('_'))] = {firstName: results['results'][i].reservee[0].firstName, lastName: results['results'][i].reservee[0].lastName, id: results['results'][i].reservee[0]._id, reservation: string};
+			}
+
+			GLOBAL_unavailableSeats.push(string);
+
+		}	
+	}
 
 	function deleteReservation() {
 		console.log(GLOBAL_complete_seat_ID);
@@ -488,6 +551,71 @@
 		activeLab("left" + GLOBAL_lab.trim());
 		activeTime(GLOBAL_time.trim());
 	}
+
+	document.getElementById('editReservationForms').addEventListener("change", async function (e) {
+		let seatnoVal = document.getElementById('seatNo').value;
+		let labVal = document.getElementById('editLabForm').value;
+		let dateVal = document.getElementById('editDateForm').value;
+		let timeVal = document.getElementById('editTimeForm').value;
+
+		$('#seatNoValidator').css('display', 'none');
+		$('#seatNo').attr('class', 'form-control');
+		$('#editLabText').css('display', 'none');
+		$('#editTrigger').attr('class', 'btn btn-info');
+
+		if (
+			seatnoVal.slice(1) > GLOBAL_lab_format[`${labVal}`][1] * GLOBAL_lab_format[`${labVal}`][2] ||
+			seatnoVal.slice(1) <= 0 ||
+			seatnoVal.slice(1).length != 2 ||
+			seatnoVal.slice(0, -2).charCodeAt(0) < 65 ||
+			seatnoVal.slice(0, -2).charCodeAt(0) > 65 + GLOBAL_lab_format[`${labVal}`][0] - 1
+		) {
+			$('#seatNoValidator').css('display', 'block');
+			$('#seatNoValidator').css('cssText', 'display: block !important');
+			$('#seatNo').attr('class', 'form-control is-invalid');
+			$('#editTrigger').attr('class', 'btn btn-info disabled');
+		} else {
+			const response = await fetch(`/checkSeatAvail?seatnoVal=${seatnoVal}&labVal=${labVal}&dateVal=${dateVal}&timeVal=${timeVal}`,  {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				}
+			})
+
+			const results = await response.json();
+
+			if (results.exists != '') {
+				$('#seatNo').attr('class', 'form-control is-invalid');
+				$('#editLabText').css('display', 'block');
+				$('#editTrigger').attr('class', 'btn btn-info disabled');
+			}
+		}
+	});
+	
+	document.getElementById('IDNo').addEventListener("change", async function (e) {
+		let IDNoVal = document.getElementById('IDNo').value;
+
+		$('#IDNo').attr('class', 'form-control');
+		$('#IDNoValidator').css('display', 'none');
+		$('#IDNoValidator').css('cssText', 'display: none !important');
+		$('#reserveTrigger').attr('class', 'btn btn-warning');
+
+		const response = await fetch(`/checkIDno?IDNo=${IDNoVal}`,  {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+
+		const results = await response.json();
+
+		if (results.exists == '') {
+			$('#IDNo').attr('class', 'form-control is-invalid');
+			$('#IDNoValidator').css('display', 'block');
+			$('#IDNoValidator').css('cssText', 'display: block !important');
+			$('#reserveTrigger').attr('class', 'btn btn-warning disabled');
+		}
+	});
 
 	function activeLab(lab) {
 
@@ -650,7 +778,7 @@
 			document.getElementsByClassName("infoLabMajor")[0].innerHTML = GLOBAL_lab.trim();
 			document.getElementsByClassName("infoLabMajor")[0].setAttribute('data-bs-target', '#' + GLOBAL_lab.trim());
 			document.getElementsByClassName("infoLabMajor")[0].setAttribute('aria-controls', GLOBAL_lab.trim());
-			document.getElementsByClassName("infoSeats")[0].innerHTML = "Seat " + GLOBAL_seat_ID.trim();
+			document.getElementsByClassName("infoSeats")[0].innerHTML = "Seat " + GLOBAL_seat_ID.trim() + " | " + GLOBAL_date + " | " + GLOBAL_time;
 			document.getElementsByClassName("infoSeats")[0].id = seatId + "_info";
 			document.getElementsByClassName("infoLabdiv")[0].id = GLOBAL_lab.trim() + "_infoLabBtns";
 			document.getElementsByClassName("infoCollapse")[0].id = GLOBAL_lab.trim();
@@ -660,7 +788,7 @@
 			GLOBAL_no_reserve++;
 		} else {
 			var btn = document.createElement('button');
-			var textNode = document.createTextNode("Seat " + GLOBAL_seat_ID.trim());
+			var textNode = document.createTextNode("Seat " + GLOBAL_seat_ID.trim() + " | " + GLOBAL_date + " | " + GLOBAL_time);
 			var labsReserved = document.getElementsByClassName("infoLabMajor");
 			var newLab = true;
 
