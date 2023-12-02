@@ -1,6 +1,19 @@
 import schemas from "../model/schemas.js";
 import "dotenv/config";
 import mongoose from "mongoose";
+import crypto from 'crypto';
+
+function hashPassword(password, salt, callback) {
+    const iterations = 10000;
+    const hashBytes = 64;
+    const digest = 'sha512';
+
+    crypto.pbkdf2(password, salt, iterations, hashBytes, digest, (err, derivedKey) => {
+        if (err) throw err;
+        callback(derivedKey.toString('hex'));
+    });
+}
+
 
 async function aggregateReservations() {
     let reservations = schemas.reservations;
@@ -113,12 +126,21 @@ async function createReservations(req, res, currReservations) {
 async function createProfile(req, res, regProfile) {
     let profiles = schemas.profile;
 
-    await profiles.insertMany(regProfile)
-    .then(result => {
-        res.redirect(`/login`);
-    })
-    .catch(err => {
-        return res.status(500).json({ message: err.message });
+    const salt = crypto.randomBytes(16).toString('hex');
+
+    
+    hashPassword(regProfile.password, salt, (hashedPassword) => {
+        
+        regProfile.salt = salt;
+        regProfile.hashedPassword = hashedPassword;
+
+        profiles.create(regProfile)
+            .then(result => {
+                res.redirect(`/login`);
+            })
+            .catch(err => {
+                return res.status(500).json({ message: err.message });
+            });
     });
     
 }
@@ -191,14 +213,23 @@ async function searchProfile(query) {
 }
 
 async function findProfile(email, password) {
-    let profiles = schemas.profile;
+    try {
+        const Profile = schemas.profile;
+        const user = await Profile.findOne({ email: email });
 
-    const result = profiles.findOne({
-        email: email,
-        password: password
-    });
+        if (user && user.salt) {
+            const hashedPassword = hashPassword(password, user.salt);
 
-    return result;
+            if (hashedPassword === user.hashedPassword) {
+                return user;
+            }
+        }
+
+        return null;
+    } catch (error) {
+        console.error('Error finding user profile:', error);
+        throw error;
+    }
 }
 
 async function profGetMaxID() {
