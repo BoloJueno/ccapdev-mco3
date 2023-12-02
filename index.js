@@ -279,7 +279,7 @@ routes.route("/results").get(async (req, res) =>{
 routes.route("/login").post(async (req, res, next) => {
     let email = req.body.email;
     let password = req.body.password;
-    let rememberMeBox = req.body.rememberMeBox; // for MCO3 phase
+    let rememberMeBox = req.body.rememberMeBox; 
 
     let user = await controller.findProfile(email, password);
 
@@ -294,6 +294,10 @@ routes.route("/login").post(async (req, res, next) => {
             userType = 2;
         }
         
+        // remember me option for valid account
+        const maxAge = rememberMeBox ? 3 * 7 * 24 * 60 * 60 * 1000 : 0; // 3 weeks
+        res.cookie('email', email, {maxAge});
+
         res.redirect(`/index/${userType}`);
     } else {
         res.redirect(`/login/failed`);
@@ -608,6 +612,7 @@ routes.route("/create").post(async(req, res, next) => {
 
 });
 
+//create an account
 routes.route("/register2").post(async (req, res, next) => {
 
     let IDnum;
@@ -631,6 +636,7 @@ routes.route("/register2").post(async (req, res, next) => {
     await controller.createProfile(req, res, regProfile);
 });
 
+//edit a profile
 routes.route("/editProfile/:id")
     .post(upload.single('image'), async (req, res, next) => {
         const id = req.params.id;
@@ -640,6 +646,8 @@ routes.route("/editProfile/:id")
         });
     });
 
+
+//delete profile
 routes.route("/deleteProfile/:id").post(async (req, res, next) =>{
     controller.deleteProfile(req.params.id, res);
 });

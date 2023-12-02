@@ -24,3 +24,11 @@ input.addEventListener("keypress", function(event) {
         document.getElementById("searchbtn").click();
     }
 });
+
+// function setcookie(){
+//   var remCheck = document.getElementById("rememberMeBox");
+//   var emailInput = document.getElementById("email");
+//   var passInput = document.getElementById("password");
+
+//   if
+// }
