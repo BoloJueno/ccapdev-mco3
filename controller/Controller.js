@@ -270,6 +270,16 @@ async function deleteProfile(id, res) {
     }
 }
 
+async function findIDno(result) {
+    const profiles = schemas.profile;
+
+    const results = await profiles.find({
+        IDno: result.IDNo
+    });
+
+    return results;
+}
+
 export default {
     aggregateReservations, 
     getMaxID, 
@@ -284,5 +294,6 @@ export default {
     deteleByIdProfile,
     editProfileDesc,
     deleteProfile,
-    profileUpdateReservation
+    profileUpdateReservation,
+    findIDno
 };
