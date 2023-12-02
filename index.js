@@ -222,6 +222,24 @@ routes.route("/login").get(function (req, res) {
     res.render('login', { layout: 'loginLayout'});
 });
 
+routes.route("/about").get(function (req, res) {
+    if (req.session.user) {
+        res.render('about', { 
+            layout: 'aboutLayout',
+            user: req.session.user.type, 
+            isCreated: req.params.isCreated, 
+            sessionIDno: req.session.user.IDno,
+            session: req.session.user,
+            sessionID: req.session.user._id,
+            firstName: req.session.user.firstName,
+            lastName: req.session.user.lastName
+        });
+    } else {
+        res.render('about', { layout: 'aboutLayout'});
+    }
+    
+});
+
 routes.route("/logout").get(function (req, res) {
     req.session.destroy((err) => {
         if (err) {
