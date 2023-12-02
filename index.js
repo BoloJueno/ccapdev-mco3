@@ -40,12 +40,15 @@ app.use(
     })
 )
 app.use(express.static('public'));
-app.use(session({
+
+app.use(session({ 
     secret: 'Ccapdev2324!',
+    resave: false,
+    saveUninitialized: true,
     cookie: {
-        sameSite: 'strict',
-    }
-}));
+        maxAge: null
+    } 
+    }));
 
 app.set('view engine', 'hbs');
 app.engine('hbs', exphbs.engine({
@@ -223,11 +226,15 @@ routes.route("/login").get(function (req, res) {
 });
 
 routes.route("/logout").get(function (req, res) {
+    // Log session information
+    console.log('Session before logout:', req.session);
+
     req.session.destroy((err) => {
         if (err) {
             console.error('Error destroying session:', err);
             res.status(500).send('Internal Server Error');
         } else {
+            res.clearCookie('user');
             res.redirect('/login');
         }
     });
@@ -279,7 +286,9 @@ routes.route("/results").get(async (req, res) =>{
 routes.route("/login").post(async (req, res, next) => {
     let email = req.body.email;
     let password = req.body.password;
-    let rememberMeBox = req.body.rememberMeBox; 
+    let rememberMeBox = req.body.rememberMeBox;
+
+    console.log('Remember value', rememberMeBox);
 
     let user = await controller.findProfile(email, password);
 
@@ -287,22 +296,22 @@ routes.route("/login").post(async (req, res, next) => {
         req.session.user = user;
         req.session.authorized = true;
 
-        let userType
-        if (req.session.user.type == 'Student')  {
-            userType = 1;
+        if (rememberMeBox === 'on') {
+            // Set maxAge to 10 seconds
+            req.session.cookie.maxAge = 10000; //21 * 24 * 60 * 60 * 1000  for 3 weeks
+          } else {
+            // Set maxAge to null to make it a session cookie
+            req.session.cookie.maxAge = null;
+          }
+      
+          let userType = req.session.user.type === 'Student' ? 1 : 2;
+          res.redirect(`/index/${userType}`);
         } else {
-            userType = 2;
-        }
-        
-        // remember me option for valid account
-        const maxAge = rememberMeBox ? 3 * 7 * 24 * 60 * 60 * 1000 : 0; // 3 weeks
-        res.cookie('email', email, {maxAge});
-
-        res.redirect(`/index/${userType}`);
-    } else {
-        res.redirect(`/login/failed`);
-    };
+          res.redirect(`/login/failed`);
+    }
 });
+
+
 
 //=========================posts=================================
 
