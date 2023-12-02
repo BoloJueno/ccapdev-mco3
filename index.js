@@ -13,6 +13,7 @@ import {fileURLToPath} from 'url';
 import session from "express-session";
 import { profile } from "console";
 import Controller from "./controller/Controller.js";
+//import cookieSession from "cookie-session";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,9 +47,12 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
+        httpOnly: true,
         maxAge: null
     } 
     }));
+
+//app.use(SessionCookie());
 
 app.set('view engine', 'hbs');
 app.engine('hbs', exphbs.engine({
@@ -298,12 +302,13 @@ routes.route("/login").post(async (req, res, next) => {
 
         if (rememberMeBox === 'on') {
             // Set maxAge to 10 seconds
-            req.session.cookie.maxAge = 10000; //21 * 24 * 60 * 60 * 1000  for 3 weeks
+            req.session.cookie.maxAge = 5000; //21 * 24 * 60 * 60 * 1000  for 3 weeks
           } else {
             // Set maxAge to null to make it a session cookie
             req.session.cookie.maxAge = null;
-          }
-      
+            console.log('gumana else');
+           }
+
           let userType = req.session.user.type === 'Student' ? 1 : 2;
           res.redirect(`/index/${userType}`);
         } else {
