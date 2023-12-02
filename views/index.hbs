@@ -617,6 +617,12 @@
 		}
 	});
 
+	{{#if session}}
+		{{#if tabClose}}
+			$.get('/logout');
+		{{/if}}
+	{{/if}}
+
 	function activeLab(lab) {
 
 		var labs = document.getElementsByClassName("labs");
