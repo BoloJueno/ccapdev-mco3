@@ -349,3 +349,8 @@ body {
 #searchUserForm {
     margin-bottom: 0px;
 }
+
+.dropdown-menu {
+    max-height: 500px; 
+    overflow-y: auto;
+}
