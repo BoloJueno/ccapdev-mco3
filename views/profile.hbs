@@ -390,7 +390,7 @@
         $('#seatNoValidator').css('display', 'none');
         $('#seatNo').attr('class', 'form-control');
         $('#editLabText').css('display', 'none');
-        $('#editTrigger').attr('class', 'btn btn-info');
+        $('#editTrigger').attr('class', 'btn btn-warning');
 
         if (
                 seatnoVal.slice(1) > GLOBAL_lab_format[`${labVal}`][1] * GLOBAL_lab_format[`${labVal}`][2] ||
@@ -402,7 +402,7 @@
             $('#seatNoValidator').css('display', 'block');
             $('#seatNoValidator').css('cssText', 'display: block !important');
             $('#seatNo').attr('class', 'form-control is-invalid');
-            $('#editTrigger').attr('class', 'btn btn-info disabled');
+            $('#editTrigger').attr('class', 'btn btn-warning disabled');
         } else {
             const response = await fetch(`/checkSeatAvail?seatnoVal=${seatnoVal}&labVal=${labVal}&dateVal=${dateVal}&timeVal=${timeVal}`,  {
                 method: 'GET',
@@ -416,7 +416,7 @@
             if (results.exists != '') {
                 $('#seatNo').attr('class', 'form-control is-invalid');
                 $('#editLabText').css('display', 'block');
-                $('#editTrigger').attr('class', 'btn btn-info disabled');
+                $('#editTrigger').attr('class', 'btn btn-warning disabled');
             }
         }
     });
