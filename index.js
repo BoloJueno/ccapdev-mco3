@@ -672,7 +672,6 @@ routes.route("/register2").post(async (req, res, next) => {
         lastName: req.body.lastName,
         img: "https://iabc.bc.ca/wp-content/uploads/2018/05/unknown_profile.png",
         email: req.body.email,
-        password: req.body.password,
         rem: true,
         IDno: IDnum[0].maxField + 1,
     }
