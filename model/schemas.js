@@ -9,7 +9,6 @@ const profileSchema = new Schema ({
     type: {type:String, required:true, enum:['Student', 'Lab Technician']},
     bio: {type:String},
     email: {type:String, required:true},
-    password: {type:String, required:true},
     salt: { type: String, required: true },
     hashedPassword: { type: String, required: true },
     rem: {type:Boolean, required:true},

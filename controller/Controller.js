@@ -139,7 +139,7 @@ async function createProfile(req, res, regProfile) {
         const profiles = schemas.profile;
 
         const salt = crypto.randomBytes(16).toString('hex');
-        const hashedPassword = await hashPassword(regProfile.password, salt);
+        const hashedPassword = await hashPassword(req.body.password, salt);
 
         regProfile.salt = salt;
         regProfile.hashedPassword = hashedPassword;
