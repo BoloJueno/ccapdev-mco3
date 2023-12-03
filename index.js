@@ -321,7 +321,6 @@ routes.route("/login").post(async (req, res, next) => {
 
                 // See expiration time
                 const expirationTime = new Date(Date.now() + req.session.cookie.maxAge);
-                console.log('Session expiration time:', expirationTime);
 
                 let userType = req.session.user.type === 'Student' ? 1 : 2;
                 res.redirect(`/index/${userType}`);
