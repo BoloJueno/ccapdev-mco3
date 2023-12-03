@@ -8,6 +8,9 @@ async function findAvailSeat(result) {
     let postTime = result.timeVal;
     let dateString;
 
+    console.log(result.dateVal);
+
+
     //year month
     switch(postDate.split(' ')[0]) {
         case 'Jan':
@@ -49,7 +52,10 @@ async function findAvailSeat(result) {
     }
 
     //day
-    if (postDate.split(' ')[1].slice(0, -1) <= 9) {
+    let day = postDate.split(" ")[1].slice(0, -1);
+    let dayLength= day.length;
+
+    if (day <= 9 && dayLength == 1) {
         dateString = dateString + "0" + postDate.split(' ')[1].slice(0, -1) + "T";
     } else {
         dateString = dateString + postDate.split(' ')[1].slice(0, -1)  + "T";
