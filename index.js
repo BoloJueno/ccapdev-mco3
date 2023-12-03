@@ -436,7 +436,7 @@ routes.route("/index/edit/:id").post(function(req, res) {
     }
 
     //day
-    if (postDate.split(' ')[1].slice(0, -1) <= 9) {
+    if (postDate.split(' ')[1].slice(0, -1).length < 2) {
         dateString = dateString + "0" + postDate.split(' ')[1].slice(0, -1) + "T";
     } else {
         dateString = dateString + postDate.split(' ')[1].slice(0, -1)  + "T";
@@ -504,7 +504,7 @@ routes.route("/profile/edit/:id/:profile").post(function(req, res) {
     }
 
     //day
-    if (postDate.split(' ')[1].slice(0, -1) <= 9) {
+    if (postDate.split(' ')[1].slice(0, -1).length < 2) {
         dateString = dateString + "0" + postDate.split(' ')[1].slice(0, -1) + "T";
     } else {
         dateString = dateString + postDate.split(' ')[1].slice(0, -1)  + "T";
