@@ -317,6 +317,16 @@ async function findIDno(result) {
     return results;
 }
 
+async function findemail(result) {
+    const profiles = schemas.profile;
+
+    const results = await profiles.find({
+        email: result.email
+    });
+
+    return results;
+}
+
 export default {
     aggregateReservations, 
     getMaxID, 
@@ -334,5 +344,6 @@ export default {
     profileUpdateReservation,
     findIDno,
     hashPassword,
-    comparePasswords
+    comparePasswords,
+    findemail
 };

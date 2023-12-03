@@ -360,6 +360,17 @@ routes.route("/checkIDno").get(async(req, res) => {
     res.json({exists});
 });
 
+routes.route("/checkemail").get(async (req, res) => {
+    try {
+        const result = req.query;
+        const exists = await Controller.findemail(result);
+        res.json({ exists });
+    } catch (error) {
+        console.error('Error in /checkemail route:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 //delete reservations index
 routes.route("/index/delete/:id").get(function(req, res) {
     let id = req.params.id;

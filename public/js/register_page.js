@@ -24,6 +24,51 @@ function togglePass2() {
     }
 }
 
+document.getElementById('email').addEventListener("input", async function (e) {
+  try {
+      let emailValue = document.getElementById('email').value;
+      console.log('Email changed. New value:', emailValue);
+
+      $('#email').attr('class', 'form-input');
+      $('#emailValidator').css('display', 'none');
+      $('#emailValidator').css('cssText', 'display: none !important');
+      $('#register-button').attr('class', 'btn btn-warning');
+
+      const response = await fetch(`/checkemail?email=${emailValue}`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      }).catch(error => console.error('Error during fetch:', error));
+
+      console.log('Fetch request sent to server.');
+
+      if (response.ok) {
+          const results = await response.json();
+          console.log('Server response:', results);
+
+          if (results.exists == '') {
+              console.log('Email is available.');
+              $('#email').attr('class', 'form-input');
+              $('#emailValidator').css('display', 'none');
+              $('#emailValidator').css('cssText', 'display: none !important');
+              $('#register-button').attr('class', 'btn btn-warning');
+          } else {
+              console.log('Email is already taken.');
+              $('#email').attr('class', 'form-input is-invalid');
+              $('#emailValidator').css('display', 'block');
+              $('#emailValidator').css('cssText', 'display: block !important');
+              $('#register-button').attr('class', 'btn btn-warning disabled');
+          }
+      } else {
+          console.error('Server returned an error:', response.status);
+          console.error('Server response text:', await response.text());
+      }
+  } catch (error) {
+      console.error('An error occurred:', error);
+  }
+});
+
 var password = document.getElementById("password"), 
     confirm_password = document.getElementById("verifyPassword");
 
