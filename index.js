@@ -591,7 +591,7 @@ routes.route("/create").post(async(req, res, next) => {
         }
 
         //day
-        if (postDate.slice(3).split(',')[0] <= 9) {
+        if (postDate.slice(3).split(',')[0].toString().length < 2) {
             dateString = dateString + "0" + postDate.slice(3).split(',')[0] + "T";
         } else {
             dateString = dateString + postDate.slice(3).split(',')[0]  + "T";
