@@ -1,6 +1,30 @@
 import schemas from "../model/schemas.js";
 import "dotenv/config";
 import mongoose from "mongoose";
+import crypto from 'crypto';
+
+function hashPassword(password, salt) {
+    return new Promise((resolve, reject) => {
+        const iterations = 10000;
+        const hashBytes = 64;
+        const digest = 'sha512';
+
+        crypto.pbkdf2(password, salt, iterations, hashBytes, digest, (err, derivedKey) => {
+            if (err) reject(err);
+            resolve(derivedKey.toString('hex'));
+        });
+    });
+}
+
+async function comparePasswords(inputPassword, storedHashedPassword, storedSalt) {
+    try {
+        const hashedPassword = await hashPassword(inputPassword, storedSalt);
+        return hashedPassword === storedHashedPassword;
+    } catch (error) {
+        console.error('Error comparing passwords:', error);
+        throw error;
+    }
+}
 
 async function aggregateReservations() {
     let reservations = schemas.reservations;
@@ -111,15 +135,20 @@ async function createReservations(req, res, currReservations) {
 }
 
 async function createProfile(req, res, regProfile) {
-    let profiles = schemas.profile;
+    try {
+        const profiles = schemas.profile;
 
-    await profiles.insertMany(regProfile)
-    .then(result => {
+        const salt = crypto.randomBytes(16).toString('hex');
+        const hashedPassword = await hashPassword(regProfile.password, salt);
+
+        regProfile.salt = salt;
+        regProfile.hashedPassword = hashedPassword;
+
+        await profiles.create(regProfile);
         res.redirect(`/login`);
-    })
-    .catch(err => {
+    } catch (err) {
         return res.status(500).json({ message: err.message });
-    });
+    }
     
 }
 
@@ -191,14 +220,22 @@ async function searchProfile(query) {
 }
 
 async function findProfile(email, password) {
-    let profiles = schemas.profile;
+    try {
+        const Profile = schemas.profile;
+        const user = await Profile.findOne({ email: email });
 
-    const result = profiles.findOne({
-        email: email,
-        password: password
-    });
+        if (user && user.salt) {
+            const hashedPassword = await hashPassword(password, user.salt);
+            if (hashedPassword === user.hashedPassword) {
+                return user;
+            }
+        }
 
-    return result;
+        return null;
+    } catch (error) {
+        console.error('Error finding user profile:', error);
+        throw error;
+    }
 }
 
 async function profGetMaxID() {
@@ -295,5 +332,7 @@ export default {
     editProfileDesc,
     deleteProfile,
     profileUpdateReservation,
-    findIDno
+    findIDno,
+    hashPassword,
+    comparePasswords
 };
