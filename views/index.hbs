@@ -1102,12 +1102,13 @@
 					// currBtn.setAttribute("onclick", "activeSeat(id)");
 
 					var generatedSeat = String.fromCharCode(i + 65) + ((j * seats) + (k + 1)).toString().padStart(2, '0');
-					var curBtnID =  GLOBAL_date.trim().replace(/\s+/g, '') + "_" + GLOBAL_time.trim().split(' ')[0] + "_" + GLOBAL_lab.trim() + "_" + generatedSeat ;
+					var curBtnDay = parseInt(GLOBAL_date.trim().replace(/\s+/g, '').substring(3));
+					var curBtnYear = GLOBAL_date.trim().replace(/\s+/g, '').toString().substring(GLOBAL_date.trim().replace(/\s+/g, '').length - 5)
+					var curBtnID =  GLOBAL_date.trim().replace(/\s+/g, '').slice(0, 3) + curBtnDay + curBtnYear + "_" + GLOBAL_time.trim().split(' ')[0] + "_" + GLOBAL_lab.trim() + "_" + generatedSeat ;
 
 					currBtn.id = curBtnID;
 
 					for (var x = 0; x < GLOBAL_unavailableSeats.length; x++) {
-						
 						if (curBtnID == GLOBAL_unavailableSeats[x].substring(0, GLOBAL_unavailableSeats[x].lastIndexOf('_'))) {
 							currBtn.className = "btn btn-warning takenSeats activeGrid grid";
 							currBtn.setAttribute("data-toggle", "popoverReserved");
