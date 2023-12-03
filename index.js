@@ -303,32 +303,39 @@ routes.route("/results").get(async (req, res) =>{
 //=========================posts=================================
 
 routes.route("/login").post(async (req, res, next) => {
-    let email = req.body.email;
-    let password = req.body.password;
-    let rememberMeBox = req.body.rememberMeBox;
+    try {
+        let email = req.body.email;
+        let password = req.body.password;
+        let rememberMeBox = req.body.rememberMeBox;
 
-    console.log('Remember value', rememberMeBox);
+        let user = await controller.findProfile(email, password);
 
-    let user = await controller.findProfile(email, password);
+        if (user && user.salt) {
+            const passwordMatch = await controller.comparePasswords(password, user.hashedPassword, user.salt);
 
-    if (user) {
-        req.session.user = user;
-        req.session.authorized = true;
+            if (passwordMatch) {
+                req.session.user = user;
+                req.session.authorized = true;
 
-        req.session.cookie.maxAge = rememberMeBox === 'on' ? 21 * 24 * 60 * 60 * 1000 : null;
+                req.session.cookie.maxAge = rememberMeBox === 'on' ? 21 * 24 * 60 * 60 * 1000 : null;
 
-        // see expiration time
-        const expirationTime = new Date(Date.now() + req.session.cookie.maxAge);
-        console.log('Session expiration time:', expirationTime);
+                // See expiration time
+                const expirationTime = new Date(Date.now() + req.session.cookie.maxAge);
+                console.log('Session expiration time:', expirationTime);
 
-          let userType = req.session.user.type === 'Student' ? 1 : 2;
-          res.redirect(`/index/${userType}`);
+                let userType = req.session.user.type === 'Student' ? 1 : 2;
+                res.redirect(`/index/${userType}`);
+            } else {
+                res.redirect(`/login/failed`);
+            }
         } else {
-          res.redirect(`/login/failed`);
+            res.redirect(`/login/failed`);
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
-
-
 
 //=========================posts=================================
 

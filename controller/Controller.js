@@ -3,23 +3,28 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import crypto from 'crypto';
 
-function hashPassword(password, salt, callback) {
-    const iterations = 10000;
-    const hashBytes = 64;
-    const digest = 'sha512';
+function hashPassword(password, salt) {
+    return new Promise((resolve, reject) => {
+        const iterations = 10000;
+        const hashBytes = 64;
+        const digest = 'sha512';
 
-    if (callback && typeof callback === 'function') {
         crypto.pbkdf2(password, salt, iterations, hashBytes, digest, (err, derivedKey) => {
-            if (err) throw err;
-            callback(derivedKey.toString('hex'));
+            if (err) reject(err);
+            resolve(derivedKey.toString('hex'));
         });
-    } else {
-        const derivedKey = crypto.pbkdf2Sync(password, salt, iterations, hashBytes, digest);
-        return derivedKey.toString('hex');
-    }
+    });
 }
 
-
+async function comparePasswords(inputPassword, storedHashedPassword, storedSalt) {
+    try {
+        const hashedPassword = await hashPassword(inputPassword, storedSalt);
+        return hashedPassword === storedHashedPassword;
+    } catch (error) {
+        console.error('Error comparing passwords:', error);
+        throw error;
+    }
+}
 
 async function aggregateReservations() {
     let reservations = schemas.reservations;
@@ -130,24 +135,20 @@ async function createReservations(req, res, currReservations) {
 }
 
 async function createProfile(req, res, regProfile) {
-    let profiles = schemas.profile;
+    try {
+        const profiles = schemas.profile;
 
-    const salt = crypto.randomBytes(16).toString('hex');
+        const salt = crypto.randomBytes(16).toString('hex');
+        const hashedPassword = await hashPassword(regProfile.password, salt);
 
-    
-    hashPassword(regProfile.password, salt, (hashedPassword) => {
-        
         regProfile.salt = salt;
         regProfile.hashedPassword = hashedPassword;
 
-        profiles.create(regProfile)
-            .then(result => {
-                res.redirect(`/login`);
-            })
-            .catch(err => {
-                return res.status(500).json({ message: err.message });
-            });
-    });
+        await profiles.create(regProfile);
+        res.redirect(`/login`);
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
     
 }
 
@@ -224,7 +225,7 @@ async function findProfile(email, password) {
         const user = await Profile.findOne({ email: email });
 
         if (user && user.salt) {
-            const hashedPassword = hashPassword(password, user.salt);
+            const hashedPassword = await hashPassword(password, user.salt);
             if (hashedPassword === user.hashedPassword) {
                 return user;
             }
@@ -331,5 +332,7 @@ export default {
     editProfileDesc,
     deleteProfile,
     profileUpdateReservation,
-    findIDno
+    findIDno,
+    hashPassword,
+    comparePasswords
 };
