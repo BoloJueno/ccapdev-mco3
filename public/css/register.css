@@ -71,3 +71,7 @@
     position: fixed;
     height: 100%;
 }
+
+#emailValidator {
+    margin-left: 20px;
+}
