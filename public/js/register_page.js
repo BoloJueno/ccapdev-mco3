@@ -32,7 +32,18 @@ document.getElementById('email').addEventListener("input", async function (e) {
       $('#email').attr('class', 'form-input');
       $('#emailValidator').css('display', 'none');
       $('#emailValidator').css('cssText', 'display: none !important');
+      $('#emailValidator2').css('display', 'none');
       $('#register-button').attr('class', 'btn btn-warning');
+
+      const emailDomain = emailValue.split('@')[1];
+
+      if (emailDomain && emailDomain.toLowerCase() !== 'dlsu.edu.ph') {
+          console.log('Invalid DLSU email format.');
+
+          $('#emailValidator2').css('display', 'block');
+          $('#emailValidator2').css('cssText', 'display: block !important');
+          $('#register-button').attr('class', 'btn btn-warning disabled');
+      }
 
       const response = await fetch(`/checkemail?email=${emailValue}`, {
           method: 'GET',
@@ -41,7 +52,7 @@ document.getElementById('email').addEventListener("input", async function (e) {
           }
       }).catch(error => console.error('Error during fetch:', error));
 
-      console.log('Fetch request sent to server.');
+      console.log('Fetch request sent to the server.');
 
       if (response.ok) {
           const results = await response.json();
@@ -52,7 +63,6 @@ document.getElementById('email').addEventListener("input", async function (e) {
               $('#email').attr('class', 'form-input');
               $('#emailValidator').css('display', 'none');
               $('#emailValidator').css('cssText', 'display: none !important');
-              $('#register-button').attr('class', 'btn btn-warning');
           } else {
               console.log('Email is already taken.');
               $('#email').attr('class', 'form-input is-invalid');
