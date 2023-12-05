@@ -297,7 +297,7 @@ async function deleteProfile(id, res) {
         const deletedProfile = await profile.findByIdAndDelete(id);
 
         if (deletedProfile) {
-            res.redirect('/login');
+            res.redirect('/logout');
         } else {
             res.status(404).json({ message: 'Profile not found' });
         }
